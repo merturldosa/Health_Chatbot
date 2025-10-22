@@ -36,9 +36,16 @@ const MedicationTracker = () => {
     e.preventDefault();
     try {
       await medicationsAPI.create({
-        ...formData,
+        medication_name: formData.medication_name,
+        dosage: formData.dosage,
+        frequency: formData.frequency,
+        time_morning: formData.time_morning || null,
+        time_afternoon: formData.time_afternoon || null,
+        time_evening: formData.time_evening || null,
         start_date: new Date(formData.start_date).toISOString(),
         end_date: formData.end_date ? new Date(formData.end_date).toISOString() : null,
+        reminder_enabled: formData.reminder_enabled,
+        notes: formData.notes || null,
       });
       setShowAddForm(false);
       setFormData({

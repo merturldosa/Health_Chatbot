@@ -31,9 +31,24 @@ app = FastAPI(
 )
 
 # CORS 설정
+origins = [
+    "http://localhost:3000",
+    "http://localhost:5173",
+    "http://localhost:5174",
+    "http://localhost:5175",  # Vite가 다른 포트를 사용할 수 있음
+    # 프로덕션 URL (배포 후 추가)
+    # "https://your-app.vercel.app",
+    # "https://your-app.onrender.com",
+]
+
+# 환경 변수로 추가 origins 지원
+import os
+if os.getenv("FRONTEND_URL"):
+    origins.append(os.getenv("FRONTEND_URL"))
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://localhost:5173"],  # React 개발 서버
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

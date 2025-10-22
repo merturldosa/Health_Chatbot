@@ -30,6 +30,22 @@ const HealthDashboard = () => {
     }
   };
 
+  const handleAddClick = () => {
+    if (!showAddForm) {
+      // 폼을 열 때 현재 선택된 탭의 항목으로 자동 설정
+      const currentType = recordTypes.find((t) => t.value === selectedType);
+      setFormData({
+        record_type: selectedType,
+        value: '',
+        unit: currentType.unit,
+        systolic: '',
+        diastolic: '',
+        notes: '',
+      });
+    }
+    setShowAddForm(!showAddForm);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -55,14 +71,18 @@ const HealthDashboard = () => {
       console.log('전송할 데이터:', submitData);
       await healthRecordsAPI.create(submitData);
       setShowAddForm(false);
+
+      // 현재 선택된 탭으로 폼 초기화
+      const currentType = recordTypes.find((t) => t.value === selectedType);
       setFormData({
-        record_type: 'blood_pressure',
+        record_type: selectedType,
         value: '',
-        unit: 'mmHg',
+        unit: currentType.unit,
         systolic: '',
         diastolic: '',
         notes: '',
       });
+
       fetchRecords();
       alert('건강 기록이 저장되었습니다!');
     } catch (error) {
@@ -102,7 +122,7 @@ const HealthDashboard = () => {
     <div className="health-dashboard">
       <div className="dashboard-header">
         <h2>📊 건강 기록</h2>
-        <button onClick={() => setShowAddForm(!showAddForm)} className="add-btn">
+        <button onClick={handleAddClick} className="add-btn">
           {showAddForm ? '취소' : '+ 기록 추가'}
         </button>
       </div>

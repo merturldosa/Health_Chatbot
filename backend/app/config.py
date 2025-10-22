@@ -5,6 +5,9 @@ from typing import Optional
 class Settings(BaseSettings):
     """앱 설정"""
 
+    # Google Gemini AI
+    GEMINI_API_KEY: str
+
     # Database
     DATABASE_URL: str = "sqlite+aiosqlite:///./health_chatbot.db"
 
@@ -16,6 +19,7 @@ class Settings(BaseSettings):
     # App
     APP_NAME: str = "AI Health Chatbot"
     DEBUG: bool = True
+    FRONTEND_URL: Optional[str] = None
 
     class Config:
         env_file = ".env"
