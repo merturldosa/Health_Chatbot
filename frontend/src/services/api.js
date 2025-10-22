@@ -44,6 +44,7 @@ export const authAPI = {
 export const chatAPI = {
   symptomCheck: (data) => api.post('/api/chat/symptom-check', data),
   getChatHistory: (sessionId) => api.get(`/api/chat/history/${sessionId}`),
+  getChatSessions: () => api.get('/api/chat/sessions'),
 };
 
 // Health Records API

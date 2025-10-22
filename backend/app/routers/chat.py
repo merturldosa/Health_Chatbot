@@ -74,6 +74,68 @@ async def symptom_check(
     )
 
 
+@router.get("/sessions")
+async def get_chat_sessions(
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """사용자의 모든 채팅 세션 목록 조회"""
+
+    result = await db.execute(
+        select(
+            ChatHistory.session_id,
+            ChatHistory.created_at.label("last_message_at")
+        )
+        .where(ChatHistory.user_id == current_user.id)
+        .distinct(ChatHistory.session_id)
+        .order_by(ChatHistory.session_id, ChatHistory.created_at.desc())
+    )
+
+    sessions_dict = {}
+    for row in result:
+        session_id = row.session_id
+        if session_id not in sessions_dict:
+            # 각 세션의 첫 번째 메시지 가져오기
+            first_msg_result = await db.execute(
+                select(ChatHistory)
+                .where(
+                    ChatHistory.user_id == current_user.id,
+                    ChatHistory.session_id == session_id,
+                    ChatHistory.role == "user"
+                )
+                .order_by(ChatHistory.created_at)
+                .limit(1)
+            )
+            first_msg = first_msg_result.scalar_one_or_none()
+
+            # 세션의 마지막 메시지 시간 가져오기
+            last_msg_result = await db.execute(
+                select(ChatHistory.created_at)
+                .where(
+                    ChatHistory.user_id == current_user.id,
+                    ChatHistory.session_id == session_id
+                )
+                .order_by(ChatHistory.created_at.desc())
+                .limit(1)
+            )
+            last_msg_time = last_msg_result.scalar_one()
+
+            sessions_dict[session_id] = {
+                "session_id": session_id,
+                "preview": first_msg.message[:50] + "..." if first_msg and len(first_msg.message) > 50 else (first_msg.message if first_msg else "대화 없음"),
+                "last_message_at": last_msg_time,
+            }
+
+    # 최신순 정렬
+    sessions = sorted(
+        sessions_dict.values(),
+        key=lambda x: x["last_message_at"],
+        reverse=True
+    )
+
+    return sessions
+
+
 @router.get("/history/{session_id}")
 async def get_chat_history(
     session_id: str,
