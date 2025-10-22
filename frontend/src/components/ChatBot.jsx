@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { chatAPI } from '../services/api';
 import { format } from 'date-fns';
+import ReactMarkdown from 'react-markdown';
 import './ChatBot.css';
 
 const ChatBot = () => {
@@ -162,7 +163,7 @@ const ChatBot = () => {
         {messages.map((msg, index) => (
           <div key={index} className={`message ${msg.role}`}>
             <div className="message-content">
-              <p>{msg.message}</p>
+              <ReactMarkdown>{msg.message}</ReactMarkdown>
               {msg.urgency_level && (
                 <div className={`urgency-badge ${msg.urgency_level}`}>
                   긴급도: {msg.urgency_level}
