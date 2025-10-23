@@ -1,60 +1,174 @@
 .navigation {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--bg-gradient);
   color: white;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-md);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
 }
 
 .nav-container {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 16px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 16px;
 }
 
 .nav-brand a {
   color: white;
   text-decoration: none;
-  font-size: 24px;
-  font-weight: bold;
+  font-size: clamp(18px, 4vw, 24px);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: transform 0.3s ease;
+}
+
+.nav-brand a:hover {
+  transform: scale(1.05);
 }
 
 .nav-links {
-  display: flex;
-  gap: 24px;
+  display: none;
+  gap: 8px;
+}
+
+/* 데스크탑 네비게이션 */
+@media (min-width: 768px) {
+  .nav-links {
+    display: flex;
+    gap: 16px;
+  }
 }
 
 .nav-links a {
   color: white;
   text-decoration: none;
   font-weight: 500;
-  padding: 8px 16px;
-  border-radius: 8px;
-  transition: background 0.3s;
+  padding: 10px 16px;
+  border-radius: var(--border-radius-sm);
+  transition: all 0.3s ease;
+  font-size: 15px;
+  white-space: nowrap;
 }
 
 .nav-links a:hover,
 .nav-links a.active {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .nav-user {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
+}
+
+.nav-user span {
+  color: white;
+  font-weight: 500;
+  font-size: 14px;
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .nav-user span {
+    display: inline;
+  }
 }
 
 .logout-btn {
   padding: 8px 16px;
   background: rgba(255, 255, 255, 0.2);
   color: white;
-  border: 1px solid white;
-  border-radius: 8px;
+  border: 2px solid white;
+  border-radius: var(--border-radius-sm);
   cursor: pointer;
-  font-weight: 500;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  white-space: nowrap;
 }
 
 .logout-btn:hover {
+  background: white;
+  color: var(--primary-color);
+  transform: translateY(-2px);
+}
+
+/* 모바일 메뉴 토글 버튼 */
+.mobile-menu-toggle {
+  display: block;
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid white;
+  color: white;
+  padding: 8px 12px;
+  border-radius: var(--border-radius-sm);
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.mobile-menu-toggle:hover {
   background: rgba(255, 255, 255, 0.3);
+}
+
+@media (min-width: 768px) {
+  .mobile-menu-toggle {
+    display: none;
+  }
+}
+
+/* 모바일 메뉴 */
+.mobile-nav {
+  display: none;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, rgba(255, 179, 198, 0.95) 0%, rgba(255, 160, 122, 0.95) 100%);
+  backdrop-filter: blur(10px);
+  animation: slideIn 0.3s ease-out;
+}
+
+.mobile-nav.open {
+  display: flex;
+}
+
+@media (min-width: 768px) {
+  .mobile-nav {
+    display: none !important;
+  }
+}
+
+.mobile-nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 12px 16px;
+  border-radius: var(--border-radius-sm);
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.mobile-nav a:hover,
+.mobile-nav a.active {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* 반응형 패딩 조정 */
+@media (max-width: 480px) {
+  .nav-container {
+    padding: 12px 16px;
+  }
+
+  .logout-btn {
+    padding: 6px 12px;
+    font-size: 13px;
+  }
 }

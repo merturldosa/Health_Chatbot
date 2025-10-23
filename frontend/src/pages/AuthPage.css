@@ -3,78 +3,138 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--bg-soft);
   padding: 20px;
 }
 
 .auth-container {
-  background: white;
-  padding: 40px;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  background: var(--bg-secondary);
+  padding: 32px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-lg);
   width: 100%;
-  max-width: 400px;
+  max-width: 420px;
+  border: 2px solid var(--border-color);
+  animation: fadeIn 0.4s ease-out;
+}
+
+@media (min-width: 768px) {
+  .auth-container {
+    padding: 40px;
+  }
 }
 
 .auth-container h2 {
-  margin: 0 0 24px 0;
+  margin: 0 0 28px 0;
   text-align: center;
-  color: #333;
+  color: var(--text-primary);
+  font-size: clamp(24px, 4vw, 32px);
+  font-weight: 800;
 }
 
 .error-message {
-  background: #ffebee;
-  color: #c62828;
-  padding: 12px;
-  border-radius: 6px;
-  margin-bottom: 16px;
+  background: linear-gradient(135deg, #FFEBEE 0%, #FFCDD2 100%);
+  color: #C62828;
+  padding: 14px 16px;
+  border-radius: var(--border-radius-sm);
+  margin-bottom: 20px;
   text-align: center;
+  border-left: 4px solid var(--danger-color);
+  font-weight: 600;
+  font-size: 14px;
+  animation: fadeIn 0.3s ease-out;
 }
 
 .auth-link {
   text-align: center;
-  margin-top: 16px;
-  color: #666;
+  margin-top: 20px;
+  color: var(--text-secondary);
+  font-size: 15px;
 }
 
 .auth-link a {
-  color: #667eea;
+  color: var(--primary-color);
   text-decoration: none;
-  font-weight: 600;
+  font-weight: 700;
+  transition: color 0.3s ease;
 }
 
 .auth-link a:hover {
+  color: var(--primary-dark);
   text-decoration: underline;
 }
 
 .register-container {
-  max-width: 500px;
+  max-width: 540px;
 }
 
 .form-row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 16px;
+  margin-bottom: 16px;
+}
+
+@media (min-width: 640px) {
+  .form-row {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 .submit-btn {
   width: 100%;
-  padding: 12px;
-  background: #667eea;
+  padding: 14px 24px;
+  background: var(--bg-gradient);
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: var(--border-radius-sm);
   cursor: pointer;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 16px;
-  margin-top: 8px;
+  margin-top: 12px;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-sm);
 }
 
 .submit-btn:hover:not(:disabled) {
-  background: #5568d3;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 
 .submit-btn:disabled {
-  background: #ccc;
+  opacity: 0.6;
   cursor: not-allowed;
+  background: linear-gradient(135deg, #E0E0E0 0%, #BDBDBD 100%);
+}
+
+/* 폼 그룹 오버라이드 */
+.auth-container .form-group {
+  margin-bottom: 20px;
+}
+
+.auth-container .form-group label {
+  color: var(--text-primary);
+  font-weight: 700;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.auth-container .form-group input,
+.auth-container .form-group select {
+  border: 2px solid var(--border-color);
+  transition: all 0.3s ease;
+  font-size: 15px;
+}
+
+@media (max-width: 767px) {
+  .auth-container .form-group input,
+  .auth-container .form-group select {
+    font-size: 16px; /* iOS 줌 방지 */
+  }
+}
+
+.auth-container .form-group input:focus,
+.auth-container .form-group select:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(255, 107, 157, 0.1);
 }
