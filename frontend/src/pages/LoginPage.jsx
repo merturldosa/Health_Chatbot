@@ -35,12 +35,13 @@ const LoginPage = () => {
         {error && <div className="error-message">{error}</div>}
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label>사용자명</label>
+            <label>로그인 ID</label>
             <input
               type="text"
               value={formData.username}
               onChange={(e) => setFormData({ ...formData, username: e.target.value })}
               required
+              placeholder="로그인 ID"
             />
           </div>
           <div className="form-group">
