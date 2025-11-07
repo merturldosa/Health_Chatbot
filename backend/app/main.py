@@ -33,24 +33,28 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-# CORS 설정
-origins = [
+# CORS 설정 - 현재 모든 origin 허용 (프로덕션에서는 제한 필요)
+import os
+
+# 개발/프로덕션 구분
+ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://localhost:5173",
     "http://localhost:5174",
-    "http://localhost:5175",  # Vite가 다른 포트를 사용할 수 있음
-    # 프로덕션 URL
+    "http://localhost:5175",
     "https://health-chatbot-dusky.vercel.app",
 ]
 
 # 환경 변수로 추가 origins 지원
-import os
 if os.getenv("FRONTEND_URL"):
-    origins.append(os.getenv("FRONTEND_URL"))
+    ALLOWED_ORIGINS.append(os.getenv("FRONTEND_URL"))
+
+print(f"🌍 CORS Origins: {ALLOWED_ORIGINS}")
+print(f"🔧 DEBUG MODE: {settings.DEBUG}")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],  # 임시로 모든 origin 허용
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
