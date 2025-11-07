@@ -1,3 +1,8 @@
+/* Tailwind 일시 비활성화 - 기존 CSS 사용 */
+/* @tailwind base; */
+/* @tailwind components; */
+/* @tailwind utilities; */
+
 :root {
   /* 밝고 친밀감 있는 색상 팔레트 */
   --primary-color: #FF6B9D;
@@ -39,6 +44,35 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* 다크모드 색상 */
+.dark {
+  --primary-color: #FF8FB3;
+  --primary-light: #FFC3D6;
+  --primary-dark: #FF6B9D;
+  --secondary-color: #FFB89A;
+  --accent-color: #D45579;
+  --success-color: #7FDBC6;
+  --warning-color: #FFC86D;
+  --danger-color: #FF8B8B;
+
+  /* 배경 색상 (어두운 톤) */
+  --bg-primary: #1A1A2E;
+  --bg-secondary: #252538;
+  --bg-gradient: linear-gradient(135deg, #2D2D44 0%, #1A1A2E 100%);
+  --bg-soft: linear-gradient(135deg, #2D2D44 0%, #252538 100%);
+
+  /* 텍스트 색상 (밝은 톤) */
+  --text-primary: #E8E8F0;
+  --text-secondary: #B8B8CC;
+  --text-light: #8888A8;
+
+  /* 기타 */
+  --border-color: #3D3D5C;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
 }
 
 * {

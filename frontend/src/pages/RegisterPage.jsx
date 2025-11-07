@@ -6,7 +6,6 @@ import './AuthPage.css';
 const RegisterPage = () => {
   const [formData, setFormData] = useState({
     email: '',
-    username: '',
     password: '',
     confirmPassword: '',
     full_name: '',
@@ -33,8 +32,11 @@ const RegisterPage = () => {
 
     try {
       const { confirmPassword, ...registerData } = formData;
+      // username을 이메일에서 자동 생성
+      const username = formData.email.split('@')[0];
       await register({
         ...registerData,
+        username: username,
         age: formData.age ? parseInt(formData.age) : null,
       });
       alert('회원가입이 완료되었습니다! 로그인해주세요.');
@@ -63,17 +65,6 @@ const RegisterPage = () => {
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
               required
               placeholder="example@email.com"
-            />
-          </div>
-
-          <div className="form-group">
-            <label>로그인 ID *</label>
-            <input
-              type="text"
-              value={formData.username}
-              onChange={(e) => setFormData({ ...formData, username: e.target.value })}
-              required
-              placeholder="로그인 ID"
             />
           </div>
 

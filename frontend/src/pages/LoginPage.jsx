@@ -5,7 +5,7 @@ import './AuthPage.css';
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({
-    username: '',
+    email: '',
     password: '',
   });
   const [error, setError] = useState('');
@@ -19,7 +19,7 @@ const LoginPage = () => {
     setLoading(true);
 
     try {
-      await login(formData.username, formData.password);
+      await login(formData.email, formData.password);
       navigate('/');
     } catch (err) {
       setError(err.response?.data?.detail || '로그인에 실패했습니다.');
@@ -35,13 +35,13 @@ const LoginPage = () => {
         {error && <div className="error-message">{error}</div>}
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label>로그인 ID</label>
+            <label>이메일</label>
             <input
-              type="text"
-              value={formData.username}
-              onChange={(e) => setFormData({ ...formData, username: e.target.value })}
+              type="email"
+              value={formData.email}
+              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
               required
-              placeholder="로그인 ID"
+              placeholder="example@email.com"
             />
           </div>
           <div className="form-group">

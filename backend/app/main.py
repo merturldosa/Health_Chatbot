@@ -9,6 +9,7 @@ from .routers import (
     health_records_router,
     medications_router,
     mental_health_router,
+    mood_records_router,
 )
 
 
@@ -59,6 +60,7 @@ app.include_router(chat_router)
 app.include_router(health_records_router)
 app.include_router(medications_router)
 app.include_router(mental_health_router)
+app.include_router(mood_records_router)
 
 
 @app.get("/")

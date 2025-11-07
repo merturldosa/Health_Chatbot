@@ -1,9 +1,11 @@
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useTheme } from '../context/ThemeContext';
 import './Navigation.css';
 
 const Navigation = () => {
   const { user, logout } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -32,8 +34,18 @@ const Navigation = () => {
               <Link to="/medication" className={isActive('/medication') ? 'active' : ''}>
                 💊 복약 관리
               </Link>
+              <Link to="/mood" className={isActive('/mood') ? 'active' : ''}>
+                🎭 감정 일기
+              </Link>
             </div>
             <div className="nav-user">
+              <button
+                onClick={toggleTheme}
+                className="theme-toggle-btn"
+                title={theme === 'dark' ? '라이트 모드' : '다크 모드'}
+              >
+                {theme === 'dark' ? '☀️' : '🌙'}
+              </button>
               <span>안녕하세요, {user.username}님</span>
               <button onClick={handleLogout} className="logout-btn">
                 로그아웃

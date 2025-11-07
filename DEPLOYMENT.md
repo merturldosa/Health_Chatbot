@@ -518,22 +518,46 @@ npm run dev
 
 1. **Render 계정 생성**: https://render.com
 
-2. **New Web Service 생성**
+2. **Python 버전 설정 (중요! ⚠️)**
+
+   `backend/runtime.txt` 파일이 생성되어 있어야 합니다:
+   ```
+   python-3.11.9
+   ```
+
+   **왜 필요한가요?**
+   - Render는 기본적으로 최신 Python 버전(3.13.4)을 사용합니다
+   - pydantic-core 같은 일부 패키지는 Python 3.13에서 컴파일 문제가 발생할 수 있습니다
+   - Python 3.11은 가장 안정적이고 호환성이 좋은 버전입니다
+
+   **트러블슈팅**: 만약 빌드 시 다음과 같은 에러가 발생하면:
+   ```
+   error: failed to create directory `/usr/local/cargo/registry/...`
+   Caused by: Read-only file system (os error 30)
+   💥 maturin failed
+   ```
+
+   이것은 pydantic-core가 Rust 컴파일에 실패한 것입니다. 해결 방법:
+   - `backend/runtime.txt` 파일로 Python 3.11 지정
+   - `requirements.txt`에서 pydantic 버전 업그레이드 (2.8.2 이상)
+
+3. **New Web Service 생성**
    - Repository 연결
    - Root Directory: `backend`
    - Build Command: `pip install -r requirements.txt`
    - Start Command: `uvicorn app.main:app --host 0.0.0.0 --port $PORT`
 
-3. **환경 변수 설정**
+4. **환경 변수 설정**
    ```
    DATABASE_URL=postgresql://user:password@host:5432/dbname
    SECRET_KEY=<생성한-시크릿-키>
    ALGORITHM=HS256
    ACCESS_TOKEN_EXPIRE_MINUTES=30
    DEBUG=False
+   FRONTEND_URL=https://your-frontend.vercel.app
    ```
 
-4. **PostgreSQL 데이터베이스 추가**
+5. **PostgreSQL 데이터베이스 추가**
    - Render Dashboard에서 "New PostgreSQL" 생성
    - 연결 정보를 `DATABASE_URL`에 설정
 

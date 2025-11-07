@@ -37,3 +37,4 @@ class User(Base):
     medications = relationship("Medication", back_populates="user", cascade="all, delete-orphan")
     chat_histories = relationship("ChatHistory", back_populates="user", cascade="all, delete-orphan")
     mental_health_checks = relationship("MentalHealthCheck", back_populates="user", cascade="all, delete-orphan")
+    mood_records = relationship("MoodRecord", back_populates="user", cascade="all, delete-orphan")

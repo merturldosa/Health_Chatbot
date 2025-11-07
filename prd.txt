@@ -1,2 +1,14 @@
 건강 상담 AI 챗봇
 AI 건상 상담 챗봇(헬스케어)
+
+
+Google AI Studio API Key
+AIzaSyCX3szSGCPJWUwQr_TLevvRpRGyeryuTdg
+
+이름
+Health_Chatbot
+프로젝트 이름
+projects/1096676484361
+프로젝트 번호
+1096676484361
+

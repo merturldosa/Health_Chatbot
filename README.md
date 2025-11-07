@@ -1,6 +1,6 @@
 # AI 건강 상담 챗봇 (Health Chatbot)
 
-AI 기반 건강 상담 및 관리 시스템입니다. OpenAI GPT를 활용하여 증상 분석, 건강 기록 관리, 복약 알림, 정신 건강 체크 등의 기능을 제공합니다.
+AI 기반 건강 상담 및 관리 시스템입니다. **Google Gemini 1.5 Pro**를 활용하여 증상 분석, 건강 기록 관리, 복약 알림, 정신 건강 체크 등의 기능을 제공합니다.
 
 ## 주요 기능
 
@@ -30,8 +30,8 @@ AI 기반 건강 상담 및 관리 시스템입니다. OpenAI GPT를 활용하�
 ### 백엔드
 - **FastAPI** - Python 웹 프레임워크
 - **SQLAlchemy** - ORM
-- **SQLite** - 데이터베이스
-- **OpenAI API** - GPT 모델
+- **SQLite** - 데이터베이스 (개발), **PostgreSQL** (프로덕션)
+- **Google Gemini 1.5 Pro** - AI 모델
 - **Pydantic** - 데이터 검증
 - **JWT** - 인증
 
@@ -45,17 +45,26 @@ AI 기반 건강 상담 및 관리 시스템입니다. OpenAI GPT를 활용하�
 ## 설치 및 실행
 
 ### 사전 요구사항
-- Python 3.9+
-- Node.js 18+
-- OpenAI API 키
+- Python 3.11+
+- Node.js 16+
+- **Google Gemini API 키** ([발급 방법](#gemini-api-키-발급))
 
-### 1. 저장소 클론
+### 1. Gemini API 키 발급
+
+1. https://aistudio.google.com/app/apikey 방문
+2. Google 계정으로 로그인
+3. "Create API Key" 클릭
+4. 생성된 API 키 복사 (안전한 곳에 보관)
+
+무료 플랜: 분당 2 요청 제한
+
+### 2. 저장소 클론
 ```bash
 git clone <repository-url>
-cd health-chatbot
+cd lp
 ```
 
-### 2. 백엔드 설정
+### 3. 백엔드 설정
 
 #### 2.1 가상환경 생성 및 활성화
 ```bash
@@ -74,65 +83,53 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-#### 2.3 환경 변수 설정
-`.env.example` 파일을 `.env`로 복사하고 값을 설정합니다:
+#### 3.3 환경 변수 설정
+`.env` 파일을 열어서 **GEMINI_API_KEY**를 설정합니다:
 
-```bash
-cp .env.example .env
-```
-
-`.env` 파일 내용:
 ```env
-# OpenAI API
-OPENAI_API_KEY=your_openai_api_key_here
+# Google Gemini AI API
+GEMINI_API_KEY=발급받은-실제-API-키-여기에-입력
 
-# Database
-DATABASE_URL=sqlite+aiosqlite:///./health_chatbot.db
-
-# Security (실제 운영 환경에서는 강력한 키로 변경하세요)
-SECRET_KEY=your_secret_key_here_change_in_production
-ALGORITHM=HS256
-ACCESS_TOKEN_EXPIRE_MINUTES=30
-
-# App Settings
-APP_NAME=AI Health Chatbot
-DEBUG=True
+# 나머지는 기본값 사용
 ```
 
-#### 2.4 서버 실행
+**중요**: `GEMINI_API_KEY`를 실제 발급받은 키로 변경하세요!
+
+#### 3.4 서버 실행
 ```bash
-cd app
-python -m uvicorn main:app --reload --host 0.0.0.0 --port 8000
+python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
 API 문서는 http://localhost:8000/docs 에서 확인할 수 있습니다.
 
-### 3. 프론트엔드 설정
+### 4. 프론트엔드 설정
 
-#### 3.1 패키지 설치
+#### 4.1 패키지 설치
 ```bash
-cd frontend
+cd ../frontend
 npm install
 ```
 
-#### 3.2 환경 변수 설정
-`.env.example` 파일을 `.env`로 복사:
+#### 4.2 환경 변수 확인
+`.env` 파일이 이미 설정되어 있습니다:
 
-```bash
-cp .env.example .env
-```
-
-`.env` 파일 내용:
 ```env
 VITE_API_URL=http://localhost:8000
 ```
 
-#### 3.3 개발 서버 실행
+#### 4.3 개발 서버 실행
 ```bash
 npm run dev
 ```
 
 프론트엔드는 http://localhost:5173 에서 실행됩니다.
+
+## 💰 비용 안내
+
+### Google Gemini 1.5 Pro
+- **무료 플랜**: 분당 2 요청 (테스트 및 개인 프로젝트 충분)
+- **유료 플랜**: Input $3.5/1M tokens, Output $10.50/1M tokens
+- 예상 월 비용: $10-30 (사용량에 따라)
 
 ## 프로젝트 구조
 

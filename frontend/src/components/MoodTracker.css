@@ -1,0 +1,853 @@
+/* 무드 트래커 컨테이너 */
+.mood-tracker-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+/* 헤더 */
+.mood-tracker-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.mood-tracker-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #FF6B9D 0%, #C06FFF 50%, #6A89FF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+.mood-icon {
+  font-size: 3rem;
+  animation: rotate-slow 5s infinite;
+}
+
+@keyframes rotate-slow {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(15deg); }
+}
+
+.mood-tracker-subtitle {
+  color: var(--text-secondary, #666);
+  font-size: 1rem;
+}
+
+/* 탭 네비게이션 */
+.mood-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 30px;
+  background: white;
+  padding: 8px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.dark .mood-tabs {
+  background: var(--bg-secondary, #252538);
+}
+
+.mood-tab {
+  flex: 1;
+  padding: 12px 20px;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary, #666);
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.mood-tab:hover {
+  background: rgba(106, 137, 255, 0.1);
+  color: #6A89FF;
+}
+
+.mood-tab.active {
+  background: linear-gradient(135deg, #FF6B9D 0%, #C06FFF 50%, #6A89FF 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(106, 137, 255, 0.3);
+}
+
+.mood-tab span {
+  font-size: 1.2rem;
+}
+
+/* 공통 카드 스타일 */
+.mood-selection-card,
+.mood-intensity-card,
+.mood-note-card,
+.mood-activities-card,
+.mood-triggers-card {
+  background: white;
+  border-radius: 20px;
+  padding: 25px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.dark .mood-selection-card,
+.dark .mood-intensity-card,
+.dark .mood-note-card,
+.dark .mood-activities-card,
+.dark .mood-triggers-card {
+  background: var(--bg-secondary, #252538);
+}
+
+.section-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text-primary, #1a1a2e);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dark .section-title {
+  color: var(--text-primary, #E8E8F0);
+}
+
+/* 감정 옵션 그리드 */
+.mood-options-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 15px;
+}
+
+.mood-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
+  border: 3px solid transparent;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.dark .mood-option {
+  background: linear-gradient(135deg, rgba(37, 37, 56, 0.9), rgba(37, 37, 56, 0.7));
+}
+
+.mood-option::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--mood-color);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 0;
+}
+
+.mood-option:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.mood-option:hover::before {
+  opacity: 0.15;
+}
+
+.mood-option.selected {
+  border-color: var(--mood-color);
+  transform: translateY(-5px) scale(1.08);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.mood-option.selected::before {
+  opacity: 0.2;
+}
+
+.mood-emoji {
+  font-size: 3rem;
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 1;
+}
+
+.mood-label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary, #1a1a2e);
+  position: relative;
+  z-index: 1;
+}
+
+.dark .mood-label {
+  color: var(--text-primary, #E8E8F0);
+}
+
+/* 감정 강도 슬라이더 */
+.mood-intensity-slider {
+  width: 100%;
+  height: 12px;
+  border-radius: 10px;
+  background: linear-gradient(
+    to right,
+    #E3F2FD 0%,
+    #90CAF9 25%,
+    #42A5F5 50%,
+    #1976D2 75%,
+    #0D47A1 100%
+  );
+  outline: none;
+  -webkit-appearance: none;
+  margin: 20px 0;
+  position: relative;
+}
+
+.mood-intensity-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: white;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border: 3px solid #1976D2;
+  transition: all 0.3s ease;
+}
+
+.mood-intensity-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+.mood-intensity-slider::-moz-range-thumb {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: white;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border: 3px solid #1976D2;
+  transition: all 0.3s ease;
+}
+
+.intensity-value {
+  color: #1976D2;
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.intensity-labels {
+  display: flex;
+  justify-content: space-between;
+  color: var(--text-secondary, #666);
+  font-size: 0.9rem;
+  margin-top: 10px;
+}
+
+/* 메모 텍스트 영역 */
+.mood-note-textarea {
+  width: 100%;
+  padding: 15px;
+  border: 2px solid #E0E0E0;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-family: inherit;
+  resize: vertical;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.dark .mood-note-textarea {
+  background: rgba(37, 37, 56, 0.5);
+  border-color: #404050;
+  color: var(--text-primary, #E8E8F0);
+}
+
+.mood-note-textarea:focus {
+  outline: none;
+  border-color: #6A89FF;
+  box-shadow: 0 0 0 3px rgba(106, 137, 255, 0.2);
+}
+
+/* 태그 옵션 */
+.tag-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.tag-option {
+  padding: 10px 20px;
+  border: 2px solid #E0E0E0;
+  border-radius: 25px;
+  background: white;
+  color: var(--text-primary, #1a1a2e);
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dark .tag-option {
+  background: rgba(37, 37, 56, 0.5);
+  border-color: #404050;
+  color: var(--text-primary, #E8E8F0);
+}
+
+.tag-option:hover {
+  border-color: #6A89FF;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(106, 137, 255, 0.2);
+}
+
+.tag-option.selected {
+  background: linear-gradient(135deg, #FF6B9D, #C06FFF);
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 4px 12px rgba(255, 107, 157, 0.3);
+}
+
+/* 커스텀 태그 입력 */
+.custom-tag-input {
+  display: flex;
+  gap: 10px;
+}
+
+.custom-tag-input input {
+  flex: 1;
+  padding: 10px 15px;
+  border: 2px solid #E0E0E0;
+  border-radius: 25px;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.dark .custom-tag-input input {
+  background: rgba(37, 37, 56, 0.5);
+  border-color: #404050;
+  color: var(--text-primary, #E8E8F0);
+}
+
+.custom-tag-input input:focus {
+  outline: none;
+  border-color: #6A89FF;
+  box-shadow: 0 0 0 3px rgba(106, 137, 255, 0.2);
+}
+
+.custom-tag-input button {
+  padding: 10px 25px;
+  background: linear-gradient(135deg, #6A89FF, #8F6FFF);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.custom-tag-input button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(106, 137, 255, 0.3);
+}
+
+/* 제출 버튼 */
+.submit-mood-btn {
+  width: 100%;
+  padding: 18px;
+  background: linear-gradient(135deg, #FF6B9D 0%, #C06FFF 50%, #6A89FF 100%);
+  color: white;
+  border: none;
+  border-radius: 16px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 20px rgba(106, 137, 255, 0.3);
+  margin-top: 20px;
+}
+
+.submit-mood-btn:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(106, 137, 255, 0.4);
+}
+
+.submit-mood-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* AI 분석 결과 카드 */
+.ai-analysis-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 20px;
+  padding: 30px;
+  margin-bottom: 30px;
+  color: white;
+  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+}
+
+.ai-analysis-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.ai-icon {
+  font-size: 2.5rem;
+}
+
+.ai-analysis-header h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.ai-analysis-content {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.analysis-section {
+  margin-bottom: 20px;
+}
+
+.analysis-section:last-child {
+  margin-bottom: 0;
+}
+
+.analysis-section h4 {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.analysis-section p {
+  line-height: 1.6;
+  opacity: 0.95;
+}
+
+.close-analysis-btn {
+  width: 100%;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.close-analysis-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* 감정 기록 목록 */
+.mood-records-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.mood-record-card {
+  background: white;
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.dark .mood-record-card {
+  background: var(--bg-secondary, #252538);
+}
+
+.mood-record-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.mood-record-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.mood-record-emoji {
+  font-size: 3rem;
+}
+
+.mood-record-info {
+  flex: 1;
+}
+
+.mood-record-info h4 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0 0 5px 0;
+  color: var(--text-primary, #1a1a2e);
+}
+
+.dark .mood-record-info h4 {
+  color: var(--text-primary, #E8E8F0);
+}
+
+.mood-record-date {
+  font-size: 0.9rem;
+  color: var(--text-secondary, #666);
+}
+
+.mood-record-intensity {
+  display: flex;
+  align-items: center;
+}
+
+.intensity-badge {
+  background: linear-gradient(135deg, #6A89FF, #8F6FFF);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.mood-record-note {
+  background: rgba(106, 137, 255, 0.1);
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 15px;
+}
+
+.mood-record-note p {
+  margin: 0;
+  line-height: 1.6;
+  color: var(--text-primary, #1a1a2e);
+}
+
+.dark .mood-record-note p {
+  color: var(--text-primary, #E8E8F0);
+}
+
+.mood-record-tags {
+  margin-bottom: 15px;
+}
+
+.mood-record-tags strong {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text-primary, #1a1a2e);
+}
+
+.dark .mood-record-tags strong {
+  color: var(--text-primary, #E8E8F0);
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag {
+  padding: 6px 14px;
+  background: linear-gradient(135deg, #FF6B9D, #FFA07A);
+  color: white;
+  border-radius: 15px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.mood-record-ai details {
+  background: rgba(102, 126, 234, 0.1);
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 15px;
+}
+
+.mood-record-ai summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: #667eea;
+  user-select: none;
+}
+
+.mood-record-ai summary:hover {
+  opacity: 0.8;
+}
+
+.ai-content {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(102, 126, 234, 0.2);
+}
+
+.ai-content p {
+  margin: 10px 0;
+  line-height: 1.6;
+}
+
+.delete-record-btn {
+  padding: 8px 20px;
+  background: transparent;
+  color: #dc3545;
+  border: 2px solid #dc3545;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.delete-record-btn:hover {
+  background: #dc3545;
+  color: white;
+}
+
+/* 통계 카드 */
+.stats-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.stat-card {
+  background: white;
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  transition: all 0.3s ease;
+}
+
+.dark .stat-card {
+  background: var(--bg-secondary, #252538);
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.stat-card.full-width {
+  grid-column: 1 / -1;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.stat-icon {
+  font-size: 3rem;
+}
+
+.stat-content h3 {
+  font-size: 1rem;
+  color: var(--text-secondary, #666);
+  margin: 0 0 8px 0;
+  font-weight: 600;
+}
+
+.stat-value {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text-primary, #1a1a2e);
+  margin: 0;
+}
+
+.dark .stat-value {
+  color: var(--text-primary, #E8E8F0);
+}
+
+/* 감정 분포 */
+.mood-distribution {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.distribution-item {
+  display: grid;
+  grid-template-columns: 150px 1fr 60px;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.distribution-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.distribution-count {
+  color: var(--text-secondary, #666);
+  font-size: 0.9rem;
+}
+
+.distribution-bar {
+  height: 20px;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.dark .distribution-bar {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.distribution-fill {
+  height: 100%;
+  border-radius: 10px;
+  transition: width 0.5s ease;
+}
+
+.distribution-percent {
+  text-align: right;
+  font-weight: 700;
+  color: var(--text-primary, #1a1a2e);
+}
+
+.dark .distribution-percent {
+  color: var(--text-primary, #E8E8F0);
+}
+
+/* 빈 상태 */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.empty-icon {
+  font-size: 5rem;
+  display: block;
+  margin-bottom: 20px;
+  opacity: 0.5;
+}
+
+.empty-state p {
+  color: var(--text-secondary, #666);
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+}
+
+.empty-state button {
+  padding: 12px 30px;
+  background: linear-gradient(135deg, #6A89FF, #8F6FFF);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.empty-state button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(106, 137, 255, 0.3);
+}
+
+/* 로딩 스피너 */
+.loading-spinner {
+  text-align: center;
+  padding: 60px 20px;
+  font-size: 1.2rem;
+  color: var(--text-secondary, #666);
+}
+
+/* 페이드인 애니메이션 */
+.fade-in {
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .mood-tracker-title {
+    font-size: 2rem;
+  }
+
+  .mood-options-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .mood-tabs {
+    flex-direction: column;
+  }
+
+  .stats-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .distribution-item {
+    grid-template-columns: 120px 1fr 50px;
+    gap: 10px;
+  }
+
+  .distribution-label {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .mood-tracker-container {
+    padding: 15px;
+  }
+
+  .mood-tracker-title {
+    font-size: 1.8rem;
+    gap: 10px;
+  }
+
+  .mood-icon {
+    font-size: 2.5rem;
+  }
+
+  .mood-options-grid {
+    gap: 10px;
+  }
+
+  .mood-option {
+    padding: 15px;
+  }
+
+  .mood-emoji {
+    font-size: 2.5rem;
+  }
+
+  .section-title {
+    font-size: 1.1rem;
+  }
+}

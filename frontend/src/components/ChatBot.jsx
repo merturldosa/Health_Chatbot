@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { chatAPI } from '../services/api';
 import { format } from 'date-fns';
 import ReactMarkdown from 'react-markdown';
+import { useChatLogger } from '../hooks/useChatLogger';
 import './ChatBot.css';
 
 const ChatBot = () => {
@@ -16,7 +17,18 @@ const ChatBot = () => {
   const [sessionId, setSessionId] = useState(null);
   const [sessions, setSessions] = useState([]);
   const [showSessions, setShowSessions] = useState(false);
+  const [showLogMenu, setShowLogMenu] = useState(false);
   const messagesEndRef = useRef(null);
+  const fileInputRef = useRef(null);
+
+  // 대화 로그 자동 저장 훅
+  const {
+    downloadCurrentSession,
+    downloadAllLogs,
+    importLogs,
+    clearLogs,
+    getLogCount,
+  } = useChatLogger(messages, sessionId);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -115,6 +127,21 @@ const ChatBot = () => {
     setShowSessions(false);
   };
 
+  // 로그 임포트 핸들러
+  const handleImportLogs = async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    try {
+      const count = await importLogs(file);
+      alert(`${count}개의 대화 로그를 가져왔습니다.`);
+      event.target.value = '';
+    } catch (error) {
+      console.error('로그 임포트 실패:', error);
+      alert('로그 파일을 불러오는데 실패했습니다. JSON 형식을 확인해주세요.');
+    }
+  };
+
   return (
     <div className="chatbot-container">
       <div className="chatbot-header">
@@ -126,6 +153,12 @@ const ChatBot = () => {
           >
             📜 대화 기록
           </button>
+          <button
+            className="log-menu-btn"
+            onClick={() => setShowLogMenu(!showLogMenu)}
+          >
+            💾 로그 관리
+          </button>
           <button className="new-chat-btn" onClick={startNewChat}>
             ➕ 새 대화
           </button>
@@ -134,6 +167,39 @@ const ChatBot = () => {
           ⚠️ 본 서비스는 정보 제공 목적이며 의학적 진단이 아닙니다
         </p>
       </div>
+
+      {showLogMenu && (
+        <div className="log-menu-panel">
+          <h3>📥 대화 로그 관리</h3>
+          <div className="log-menu-actions">
+            <button className="log-action-btn" onClick={downloadCurrentSession}>
+              📄 현재 대화 다운로드
+            </button>
+            <button className="log-action-btn" onClick={downloadAllLogs}>
+              📦 전체 로그 다운로드
+            </button>
+            <button
+              className="log-action-btn"
+              onClick={() => fileInputRef.current?.click()}
+            >
+              📂 로그 가져오기
+            </button>
+            <button className="log-action-btn danger" onClick={clearLogs}>
+              🗑️ 전체 로그 삭제
+            </button>
+          </div>
+          <p className="log-info">
+            저장된 로그: {getLogCount()}개 | 형식: Markdown (.md)
+          </p>
+          <input
+            type="file"
+            ref={fileInputRef}
+            onChange={handleImportLogs}
+            accept=".json"
+            style={{ display: 'none' }}
+          />
+        </div>
+      )}
 
       {showSessions && (
         <div className="sessions-panel">

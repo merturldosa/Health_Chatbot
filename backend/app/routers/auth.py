@@ -59,9 +59,9 @@ async def register(user_data: UserCreate, db: AsyncSession = Depends(get_db)):
 async def login(user_data: UserLogin, db: AsyncSession = Depends(get_db)):
     """로그인"""
 
-    # 사용자 조회
+    # 사용자 조회 (email로 변경)
     result = await db.execute(
-        select(User).where(User.username == user_data.username)
+        select(User).where(User.email == user_data.username)
     )
     user = result.scalar_one_or_none()
 
@@ -70,14 +70,14 @@ async def login(user_data: UserLogin, db: AsyncSession = Depends(get_db)):
     ):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="사용자명 또는 비밀번호가 올바르지 않습니다.",
+            detail="이메일 또는 비밀번호가 올바르지 않습니다.",
             headers={"WWW-Authenticate": "Bearer"},
         )
 
-    # JWT 토큰 생성
+    # JWT 토큰 생성 (email 사용)
     access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = AuthService.create_access_token(
-        data={"sub": user.username, "user_id": user.id},
+        data={"sub": user.email, "user_id": user.id},
         expires_delta=access_token_expires,
     )
 
