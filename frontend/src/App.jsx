@@ -10,6 +10,8 @@ import ChatBot from './components/ChatBot';
 import HealthDashboard from './components/HealthDashboard';
 import MedicationTracker from './components/MedicationTracker';
 import MoodTracker from './components/MoodTracker';
+import MeditationPage from './pages/MeditationPage';
+import MusicTherapyPage from './pages/MusicTherapyPage';
 import './App.css';
 
 const PrivateRoute = ({ children }) => {
@@ -70,6 +72,22 @@ function AppContent() {
               element={
                 <PrivateRoute>
                   <MoodTracker />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/meditation"
+              element={
+                <PrivateRoute>
+                  <MeditationPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/music"
+              element={
+                <PrivateRoute>
+                  <MusicTherapyPage />
                 </PrivateRoute>
               }
             />

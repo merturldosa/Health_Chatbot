@@ -37,6 +37,12 @@ const Navigation = () => {
               <Link to="/mood" className={isActive('/mood') ? 'active' : ''}>
                 🎭 감정 일기
               </Link>
+              <Link to="/meditation" className={isActive('/meditation') ? 'active' : ''}>
+                🧘 명상
+              </Link>
+              <Link to="/music" className={isActive('/music') ? 'active' : ''}>
+                🎵 음악
+              </Link>
             </div>
             <div className="nav-user">
               <button

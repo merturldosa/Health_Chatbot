@@ -18,6 +18,7 @@ const ChatBot = () => {
   const [sessions, setSessions] = useState([]);
   const [showSessions, setShowSessions] = useState(false);
   const [showLogMenu, setShowLogMenu] = useState(false);
+  const [speakingIndex, setSpeakingIndex] = useState(null);
   const messagesEndRef = useRef(null);
   const fileInputRef = useRef(null);
 
@@ -142,6 +143,44 @@ const ChatBot = () => {
     }
   };
 
+  // 음성 재생 함수 (TTS)
+  const handleSpeak = (text, index) => {
+    // 이미 재생 중이면 중지
+    if (speakingIndex === index) {
+      window.speechSynthesis.cancel();
+      setSpeakingIndex(null);
+      return;
+    }
+
+    // 다른 음성이 재생 중이면 중지
+    window.speechSynthesis.cancel();
+
+    // 마크다운 특수문자 제거 (간단한 정리)
+    const cleanText = text
+      .replace(/[#*_~`]/g, '')
+      .replace(/\[([^\]]+)\]\([^\)]+\)/g, '$1')
+      .replace(/\n+/g, ' ');
+
+    const utterance = new SpeechSynthesisUtterance(cleanText);
+    utterance.lang = 'ko-KR';
+    utterance.rate = 1.0;
+    utterance.pitch = 1.0;
+
+    utterance.onstart = () => {
+      setSpeakingIndex(index);
+    };
+
+    utterance.onend = () => {
+      setSpeakingIndex(null);
+    };
+
+    utterance.onerror = () => {
+      setSpeakingIndex(null);
+    };
+
+    window.speechSynthesis.speak(utterance);
+  };
+
   return (
     <div className="chatbot-container">
       <div className="chatbot-header">
@@ -239,6 +278,15 @@ const ChatBot = () => {
                 <div className="suggested-action">
                   <strong>권장 조치:</strong> {msg.suggested_action}
                 </div>
+              )}
+              {msg.role === 'assistant' && (
+                <button
+                  className="speak-btn"
+                  onClick={() => handleSpeak(msg.message, index)}
+                  title={speakingIndex === index ? '중지' : '듣기'}
+                >
+                  {speakingIndex === index ? '⏸️ 중지' : '🔊 듣기'}
+                </button>
               )}
             </div>
           </div>

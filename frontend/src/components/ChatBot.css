@@ -674,3 +674,39 @@
     max-height: 500px;
   }
 }
+
+/* 음성 재생(듣기) 버튼 */
+.speak-btn {
+  margin-top: 12px;
+  padding: 8px 16px;
+  background: linear-gradient(135deg, #8E7EF5 0%, #7B68EE 100%);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-sm);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.speak-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  background: linear-gradient(135deg, #9D8DF6 0%, #8A77EF 100%);
+}
+
+.speak-btn:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+@media (max-width: 767px) {
+  .speak-btn {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}

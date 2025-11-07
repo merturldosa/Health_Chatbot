@@ -71,6 +71,24 @@ export const mentalHealthAPI = {
   getOne: (id) => api.get(`/api/mental-health/${id}`),
 };
 
+// Meditation API
+export const meditationAPI = {
+  getPrograms: () => api.get('/api/meditation/programs'),
+  getProgram: (programId) => api.get(`/api/meditation/programs/${programId}`),
+  createSession: (data) => api.post('/api/meditation/sessions', data),
+  getSessions: (params) => api.get('/api/meditation/sessions', { params }),
+  deleteSession: (id) => api.delete(`/api/meditation/sessions/${id}`),
+};
+
+// Music Therapy API
+export const musicAPI = {
+  getPrograms: (params) => api.get('/api/music/programs', { params }),
+  getProgram: (programId) => api.get(`/api/music/programs/${programId}`),
+  createSession: (data) => api.post('/api/music/sessions', data),
+  getSessions: (params) => api.get('/api/music/sessions', { params }),
+  deleteSession: (id) => api.delete(`/api/music/sessions/${id}`),
+};
+
 // Disclaimer API
 export const disclaimerAPI = {
   get: () => api.get('/api/disclaimer'),

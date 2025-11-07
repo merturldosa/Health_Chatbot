@@ -38,3 +38,6 @@ class User(Base):
     chat_histories = relationship("ChatHistory", back_populates="user", cascade="all, delete-orphan")
     mental_health_checks = relationship("MentalHealthCheck", back_populates="user", cascade="all, delete-orphan")
     mood_records = relationship("MoodRecord", back_populates="user", cascade="all, delete-orphan")
+    meditation_sessions = relationship("MeditationSession", back_populates="user", cascade="all, delete-orphan")
+    music_sessions = relationship("MusicSession", back_populates="user", cascade="all, delete-orphan")
+    sleep_records = relationship("SleepRecord", back_populates="user", cascade="all, delete-orphan")

@@ -1,0 +1,360 @@
+.meditation-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.meditation-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.meditation-header h1 {
+  font-size: clamp(24px, 5vw, 32px);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.history-toggle-btn {
+  padding: 12px 20px;
+  background: var(--bg-gradient);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.history-toggle-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* 프로그램 그리드 */
+.programs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.program-card {
+  padding: 24px;
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.program-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--primary-color);
+}
+
+.program-card.meditation {
+  border-left: 4px solid #8E7EF5;
+}
+
+.program-card.breathing {
+  border-left: 4px solid #67C3A4;
+}
+
+.program-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.program-card h3 {
+  font-size: 20px;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+}
+
+.program-duration {
+  font-size: 14px;
+  color: var(--primary-color);
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.program-description {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+  line-height: 1.6;
+}
+
+.program-benefits {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.benefit-tag {
+  padding: 4px 12px;
+  background: rgba(255, 107, 157, 0.1);
+  color: var(--primary-color);
+  font-size: 12px;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+/* 세션 화면 */
+.session-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.session-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.session-header h2 {
+  font-size: 24px;
+  color: var(--text-primary);
+}
+
+.back-btn {
+  padding: 8px 16px;
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+  border-color: var(--primary-color);
+}
+
+.timer-display {
+  text-align: center;
+  margin: 48px 0;
+}
+
+.time-text {
+  font-size: 72px;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 32px;
+  font-family: 'Courier New', monospace;
+}
+
+/* 호흡 애니메이션 */
+.breath-circle {
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
+  background: linear-gradient(135deg, #FF6B9D 0%, #C76BAF 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s ease;
+  opacity: 0.3;
+}
+
+.breath-circle.active {
+  opacity: 1;
+}
+
+.breath-circle.inhale.active {
+  transform: scale(1.5);
+  background: linear-gradient(135deg, #67C3A4 0%, #5AB896 100%);
+}
+
+.breath-circle.exhale.active {
+  transform: scale(0.8);
+  background: linear-gradient(135deg, #8E7EF5 0%, #7B68EE 100%);
+}
+
+.breath-circle.hold.active,
+.breath-circle.rest.active {
+  transform: scale(1.2);
+  background: linear-gradient(135deg, #FFB84D 0%, #FFA033 100%);
+}
+
+.breath-text {
+  color: white;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+/* 컨트롤 버튼 */
+.session-controls {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin: 32px 0;
+}
+
+.control-btn {
+  padding: 16px 32px;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.control-btn.start {
+  background: linear-gradient(135deg, #67C3A4 0%, #5AB896 100%);
+  color: white;
+}
+
+.control-btn.pause {
+  background: linear-gradient(135deg, #FFB84D 0%, #FFA033 100%);
+  color: white;
+}
+
+.control-btn.stop {
+  background: linear-gradient(135deg, #FF6B6B 0%, #FF5252 100%);
+  color: white;
+}
+
+.control-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* 가이드 패널 */
+.instructions-panel {
+  background: var(--bg-secondary);
+  padding: 24px;
+  border-radius: var(--border-radius);
+  border: 2px solid var(--border-color);
+  margin-top: 32px;
+}
+
+.instructions-panel h3 {
+  margin: 0 0 16px 0;
+  color: var(--text-primary);
+}
+
+.instructions-panel ol {
+  padding-left: 24px;
+  margin: 0;
+}
+
+.instructions-panel li {
+  margin-bottom: 12px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+/* 기록 패널 */
+.history-panel {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.history-panel h2 {
+  margin-bottom: 24px;
+  color: var(--text-primary);
+}
+
+.no-data {
+  text-align: center;
+  padding: 48px;
+  color: var(--text-light);
+}
+
+.sessions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.session-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+  transition: all 0.3s ease;
+}
+
+.session-card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.session-info {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.session-icon {
+  font-size: 32px;
+}
+
+.session-card h4 {
+  margin: 0 0 4px 0;
+  color: var(--text-primary);
+}
+
+.session-meta {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin: 4px 0;
+}
+
+.session-date {
+  font-size: 13px;
+  color: var(--text-light);
+  margin: 4px 0 0 0;
+}
+
+.delete-btn {
+  padding: 8px 12px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  opacity: 0.6;
+  transition: all 0.3s ease;
+}
+
+.delete-btn:hover {
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+/* 모바일 반응형 */
+@media (max-width: 767px) {
+  .meditation-container {
+    padding: 16px;
+  }
+
+  .programs-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .time-text {
+    font-size: 48px;
+  }
+
+  .breath-circle {
+    width: 150px;
+    height: 150px;
+  }
+
+  .control-btn {
+    padding: 12px 24px;
+    font-size: 16px;
+  }
+}

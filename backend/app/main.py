@@ -10,6 +10,8 @@ from .routers import (
     medications_router,
     mental_health_router,
     mood_records_router,
+    meditation_router,
+    music_therapy_router,
 )
 
 
@@ -61,6 +63,8 @@ app.include_router(health_records_router)
 app.include_router(medications_router)
 app.include_router(mental_health_router)
 app.include_router(mood_records_router)
+app.include_router(meditation_router)
+app.include_router(music_therapy_router)
 
 
 @app.get("/")

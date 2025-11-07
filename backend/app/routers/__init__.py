@@ -4,6 +4,8 @@ from .health_records import router as health_records_router
 from .medications import router as medications_router
 from .mental_health import router as mental_health_router
 from .mood_records import router as mood_records_router
+from .meditation import router as meditation_router
+from .music_therapy import router as music_therapy_router
 
 __all__ = [
     "auth_router",
@@ -12,4 +14,6 @@ __all__ = [
     "medications_router",
     "mental_health_router",
     "mood_records_router",
+    "meditation_router",
+    "music_therapy_router",
 ]
