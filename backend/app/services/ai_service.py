@@ -35,11 +35,13 @@ class AIService:
         }
 
         self.model = genai.GenerativeModel(
-            model_name="gemini-2.5-flash",  # 최신 Gemini 2.5 Flash (빠르고 안정적)
+            model_name="gemini-1.5-flash",  # Gemini 1.5 Flash (안정적)
             generation_config=generation_config,
-            safety_settings=safety_settings,
-            system_instruction=self._get_system_instruction()
+            safety_settings=safety_settings
         )
+
+        # System instruction을 프롬프트에 포함시킴 (구버전 호환)
+        self.system_instruction = self._get_system_instruction()
 
     def _get_system_instruction(self) -> str:
         """AI 시스템 지침"""
@@ -89,8 +91,10 @@ class AIService:
             if user_context.get("medical_history"):
                 context_info += f"- 병력: {user_context['medical_history']}\n"
 
-        # 프롬프트 구성
-        prompt = f"""사용자의 증상에 대해 상담해주세요.
+        # 프롬프트 구성 (system instruction 포함)
+        prompt = f"""{self.system_instruction}
+
+사용자의 증상에 대해 상담해주세요.
 
 **사용자 증상:**
 {message}
@@ -173,8 +177,10 @@ class AIService:
     ) -> Dict[str, str]:
         """정신 건강 평가 및 조언 (Gemini API 사용)"""
 
-        # 프롬프트 구성
-        prompt = f"""사용자의 정신 건강 상태를 평가하고 조언해주세요.
+        # 프롬프트 구성 (system instruction 포함)
+        prompt = f"""{self.system_instruction}
+
+사용자의 정신 건강 상태를 평가하고 조언해주세요.
 
 **정신 건강 지표 (1-10 척도):**
 - 스트레스 수준: {stress_level if stress_level else "기록 안 됨"}/10 (높을수록 스트레스가 높음)
@@ -272,8 +278,10 @@ class AIService:
             if user_context.get("gender"):
                 context_info += f"- 성별: {user_context['gender']}\n"
 
-        # 프롬프트 구성
-        prompt = f"""사용자의 건강 측정값에 대해 조언해주세요.
+        # 프롬프트 구성 (system instruction 포함)
+        prompt = f"""{self.system_instruction}
+
+사용자의 건강 측정값에 대해 조언해주세요.
 
 **측정 정보:**
 - 측정 항목: {record_type}
