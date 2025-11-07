@@ -19,6 +19,15 @@ async def create_medication(
 ):
     """복약 정보 생성"""
 
+    # PostgreSQL: timezone-aware datetime을 timezone-naive로 변환
+    start_date = medication_data.start_date
+    end_date = medication_data.end_date
+
+    if start_date and start_date.tzinfo is not None:
+        start_date = start_date.replace(tzinfo=None)
+    if end_date and end_date.tzinfo is not None:
+        end_date = end_date.replace(tzinfo=None)
+
     new_medication = Medication(
         user_id=current_user.id,
         medication_name=medication_data.medication_name,
@@ -27,8 +36,8 @@ async def create_medication(
         time_morning=medication_data.time_morning,
         time_afternoon=medication_data.time_afternoon,
         time_evening=medication_data.time_evening,
-        start_date=medication_data.start_date,
-        end_date=medication_data.end_date,
+        start_date=start_date,
+        end_date=end_date,
         reminder_enabled=medication_data.reminder_enabled,
         notes=medication_data.notes,
     )
