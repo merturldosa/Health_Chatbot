@@ -2,16 +2,19 @@ from typing import List, Dict, Optional
 import os
 import google.generativeai as genai
 from google.generativeai.types import HarmCategory, HarmBlockThreshold
+from ..config import settings
 
 
 class AIService:
     """Google Gemini API 기반 AI 건강 상담 서비스"""
 
     def __init__(self):
-        # Gemini API 설정
-        api_key = os.getenv("GEMINI_API_KEY")
-        if not api_key:
-            raise ValueError("GEMINI_API_KEY 환경 변수가 설정되지 않았습니다.")
+        # Gemini API 설정 (config의 settings 사용)
+        api_key = settings.GEMINI_API_KEY
+
+        # 임시 키인 경우 경고 (서버는 시작됨)
+        if api_key == "temp-key-please-set-in-railway":
+            print("⚠️ WARNING: Using temporary GEMINI_API_KEY. Please set in Railway environment variables!")
 
         genai.configure(api_key=api_key)
 
