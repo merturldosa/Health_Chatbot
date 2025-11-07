@@ -1,7 +1,12 @@
 .gitignore
 
+# Project files
 *prd*
-*log*
+
+# Log files (specific patterns only)
+*_log.txt
+backend_log.txt
+claude_log.txt
 
 # Environment variables
 .env
