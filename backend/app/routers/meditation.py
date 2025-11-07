@@ -10,7 +10,7 @@ from ..schemas.meditation import (
     MeditationSessionCreate,
     MeditationProgramInfo
 )
-from ..services.auth_service import AuthService
+from ..dependencies import get_current_user
 
 router = APIRouter(prefix="/api/meditation", tags=["meditation"])
 
@@ -139,7 +139,7 @@ async def get_meditation_program(program_id: str):
 @router.post("/sessions", response_model=MeditationSession)
 async def create_meditation_session(
     session: MeditationSessionCreate,
-    current_user: User = Depends(AuthService.get_current_user),
+    current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db)
 ):
     """명상/호흡 세션 기록 저장"""
@@ -157,7 +157,7 @@ async def create_meditation_session(
 async def get_meditation_sessions(
     skip: int = 0,
     limit: int = 50,
-    current_user: User = Depends(AuthService.get_current_user),
+    current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db)
 ):
     """사용자의 명상/호흡 세션 기록 조회"""
@@ -175,7 +175,7 @@ async def get_meditation_sessions(
 @router.delete("/sessions/{session_id}")
 async def delete_meditation_session(
     session_id: int,
-    current_user: User = Depends(AuthService.get_current_user),
+    current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db)
 ):
     """명상/호흡 세션 기록 삭제"""

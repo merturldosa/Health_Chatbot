@@ -10,7 +10,7 @@ from ..schemas.music_therapy import (
     MusicSessionCreate,
     MusicProgramInfo
 )
-from ..services.auth_service import AuthService
+from ..dependencies import get_current_user
 
 router = APIRouter(prefix="/api/music", tags=["music"])
 
@@ -131,7 +131,7 @@ async def get_music_program(program_id: str):
 @router.post("/sessions", response_model=MusicSession)
 async def create_music_session(
     session: MusicSessionCreate,
-    current_user: User = Depends(AuthService.get_current_user),
+    current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db)
 ):
     """음악 치료 세션 기록 저장"""
@@ -149,7 +149,7 @@ async def create_music_session(
 async def get_music_sessions(
     skip: int = 0,
     limit: int = 50,
-    current_user: User = Depends(AuthService.get_current_user),
+    current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db)
 ):
     """사용자의 음악 치료 세션 기록 조회"""
@@ -167,7 +167,7 @@ async def get_music_sessions(
 @router.delete("/sessions/{session_id}")
 async def delete_music_session(
     session_id: int,
-    current_user: User = Depends(AuthService.get_current_user),
+    current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db)
 ):
     """음악 치료 세션 기록 삭제"""
