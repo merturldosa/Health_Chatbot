@@ -51,6 +51,8 @@ ALLOWED_ORIGINS = [
     "http://localhost:5174",
     "http://localhost:5175",
     "https://health-chatbot-dusky.vercel.app",
+    "https://localhost",        # Capacitor Android
+    "capacitor://localhost",    # Capacitor iOS
 ]
 
 # 환경 변수로 추가 origins 지원
