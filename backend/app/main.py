@@ -12,6 +12,14 @@ from .routers import (
     mood_records_router,
     meditation_router,
     music_therapy_router,
+    meals_router,
+    sleep_router,
+    disease_router,
+    pregnancy_router,
+    voice_health_router,
+    health_schedule_router,
+    emotion_router,
+    speech_router,
 )
 
 
@@ -49,12 +57,12 @@ ALLOWED_ORIGINS = [
 if os.getenv("FRONTEND_URL"):
     ALLOWED_ORIGINS.append(os.getenv("FRONTEND_URL"))
 
-print(f"🌍 CORS Origins: {ALLOWED_ORIGINS}")
-print(f"🔧 DEBUG MODE: {settings.DEBUG}")
+print(f"CORS Origins: {ALLOWED_ORIGINS}")
+print(f"DEBUG MODE: {settings.DEBUG}")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # 임시로 모든 origin 허용
+    allow_origins=ALLOWED_ORIGINS,  # 명시적인 도메인 목록 사용
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -69,6 +77,14 @@ app.include_router(mental_health_router)
 app.include_router(mood_records_router)
 app.include_router(meditation_router)
 app.include_router(music_therapy_router)
+app.include_router(meals_router)
+app.include_router(sleep_router)
+app.include_router(disease_router)
+app.include_router(pregnancy_router)
+app.include_router(voice_health_router)
+app.include_router(health_schedule_router)
+app.include_router(emotion_router)
+app.include_router(speech_router)
 
 
 @app.get("/")

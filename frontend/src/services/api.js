@@ -94,4 +94,38 @@ export const disclaimerAPI = {
   get: () => api.get('/api/disclaimer'),
 };
 
+// Speech API (Google STT)
+export const speechAPI = {
+  transcribe: (data) => api.post('/api/speech/transcribe', data),
+  transcribeFile: (file) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    return api.post('/api/speech/transcribe-file', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+  },
+};
+
+// Emotion Analysis API
+export const emotionAPI = {
+  analyze: (data) => api.post('/api/emotion/analyze', data),
+};
+
+// Meals API
+export const mealsAPI = {
+  create: (data) => api.post('/api/meals/', data),
+  uploadImage: (file) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    return api.post('/api/meals/upload-image', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+  },
+  analyze: (id) => api.post(`/api/meals/${id}/analyze`),
+  getAll: (params) => api.get('/api/meals/', { params }),
+  getToday: () => api.get('/api/meals/today'),
+  getOne: (id) => api.get(`/api/meals/${id}`),
+  delete: (id) => api.delete(`/api/meals/${id}`),
+};
+
 export default api;

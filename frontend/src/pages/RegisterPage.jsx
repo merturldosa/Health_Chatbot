@@ -32,20 +32,37 @@ const RegisterPage = () => {
 
     try {
       const { confirmPassword, ...registerData } = formData;
-      // username을 이메일에서 자동 생성
-      const username = formData.email.split('@')[0];
-      await register({
+      
+      // 데이터 전처리: 빈 문자열을 null로 변환
+      const payload = {
         ...registerData,
-        username: username,
+        // username을 이메일과 동일하게 설정하여 중복 방지
+        username: formData.email, 
         age: formData.age ? parseInt(formData.age) : null,
-      });
+        gender: formData.gender || null,
+        phone: formData.phone || null,
+        full_name: formData.full_name || null,
+      };
+
+      await register(payload);
       alert('회원가입이 완료되었습니다! 로그인해주세요.');
       navigate('/login');
     } catch (err) {
       console.error('회원가입 에러:', err);
       console.error('에러 응답:', err.response);
-      const errorMessage = err.response?.data?.detail || err.message || '회원가입에 실패했습니다.';
+      
+      // 상세 에러 메시지 구성
+      let errorMessage = '회원가입에 실패했습니다.';
+      if (err.response?.data?.detail) {
+        errorMessage = typeof err.response.data.detail === 'string' 
+          ? err.response.data.detail 
+          : JSON.stringify(err.response.data.detail);
+      } else if (err.message) {
+        errorMessage = err.message;
+      }
+      
       setError(errorMessage);
+      alert(`오류 발생: ${errorMessage}`); // 사용자에게 에러 내용 알림
     } finally {
       setLoading(false);
     }
@@ -120,9 +137,9 @@ const RegisterPage = () => {
                 onChange={(e) => setFormData({ ...formData, gender: e.target.value })}
               >
                 <option value="">선택</option>
-                <option value="male">남성</option>
-                <option value="female">여성</option>
-                <option value="other">기타</option>
+                <option value="MALE">남성</option>
+                <option value="FEMALE">여성</option>
+                <option value="OTHER">기타</option>
               </select>
             </div>
           </div>
