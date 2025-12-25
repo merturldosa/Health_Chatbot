@@ -1,0 +1,522 @@
+.continuous-voice-monitor {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 25px;
+  margin: 20px 0;
+  color: white;
+}
+
+.monitor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.header-title h3 {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 5px 0;
+}
+
+.header-description {
+  font-size: 14px;
+  opacity: 0.8;
+  margin: 0;
+}
+
+.monitor-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 24px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 25px;
+  color: white;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.monitor-toggle:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.monitor-toggle.active {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  border-color: #ef4444;
+}
+
+.status-icon {
+  font-size: 20px;
+}
+
+.status-icon.pulsing {
+  animation: pulse-icon 1.5s infinite;
+}
+
+@keyframes pulse-icon {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.1);
+  }
+}
+
+/* 모니터링 컨트롤 */
+.monitor-controls {
+  margin-bottom: 25px;
+}
+
+.auto-start-control {
+  padding: 20px;
+  background: rgba(59, 130, 246, 0.2);
+  border-radius: 15px;
+  border-left: 4px solid #3b82f6;
+}
+
+.toggle-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  margin-bottom: 12px;
+}
+
+.toggle-label input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  position: relative;
+  width: 50px;
+  height: 26px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 15px;
+  transition: all 0.3s ease;
+}
+
+.toggle-slider::before {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  left: 3px;
+  top: 3px;
+  background: white;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.toggle-label input:checked + .toggle-slider {
+  background: #10b981;
+}
+
+.toggle-label input:checked + .toggle-slider::before {
+  transform: translateX(24px);
+}
+
+.toggle-text {
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.toggle-text .badge {
+  background: #10b981;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.control-description {
+  font-size: 13px;
+  line-height: 1.6;
+  opacity: 0.9;
+  margin: 0;
+  padding-left: 62px;
+}
+
+.tab-warning {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 15px 20px;
+  background: rgba(251, 191, 36, 0.3);
+  border-radius: 12px;
+  border-left: 4px solid #fbbf24;
+  margin-top: 15px;
+  animation: pulse-warning 2s infinite;
+}
+
+.warning-icon {
+  font-size: 24px;
+}
+
+@keyframes pulse-warning {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* 오디오 상태 */
+.audio-status {
+  margin-bottom: 25px;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+}
+
+.audio-status h4 {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 15px 0;
+}
+
+.status-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+.status-item {
+  text-align: center;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+}
+
+.status-label {
+  font-size: 13px;
+  opacity: 0.8;
+  margin-bottom: 8px;
+}
+
+.status-value {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.volume-bar {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 8px;
+}
+
+.volume-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #4ade80 0%, #22c55e 100%);
+  border-radius: 10px;
+  transition: width 0.3s ease;
+}
+
+/* 정신 상태 분석 */
+.mental-state-analysis {
+  margin-bottom: 25px;
+  padding: 20px;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.2) 0%, rgba(59, 130, 246, 0.2) 100%);
+  border-radius: 15px;
+}
+
+.analysis-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.analysis-header h4 {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.overall-status {
+  padding: 8px 16px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 14px;
+  color: white;
+}
+
+.mental-indicators {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.indicator-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+}
+
+.indicator-icon {
+  font-size: 32px;
+  min-width: 40px;
+  text-align: center;
+}
+
+.indicator-content {
+  flex: 1;
+}
+
+.indicator-label {
+  font-size: 14px;
+  opacity: 0.9;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+.indicator-value {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.indicator-bar {
+  width: 100%;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.indicator-fill {
+  height: 100%;
+  border-radius: 10px;
+  transition: width 0.5s ease;
+}
+
+.indicator-fill.stress {
+  background: linear-gradient(90deg, #fbbf24 0%, #f97316 100%);
+}
+
+.indicator-fill.anxiety {
+  background: linear-gradient(90deg, #f87171 0%, #ef4444 100%);
+}
+
+.indicator-fill.depression {
+  background: linear-gradient(90deg, #60a5fa 0%, #3b82f6 100%);
+}
+
+.indicator-fill.energy {
+  background: linear-gradient(90deg, #4ade80 0%, #22c55e 100%);
+}
+
+/* 알림 섹션 */
+.alerts-section {
+  margin-bottom: 25px;
+  padding: 20px;
+  background: rgba(239, 68, 68, 0.2);
+  border-radius: 15px;
+  border-left: 4px solid #ef4444;
+}
+
+.alerts-section h4 {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 15px 0;
+}
+
+.alerts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.alert-item {
+  padding: 12px 15px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.alert-time {
+  font-size: 13px;
+  opacity: 0.8;
+  min-width: 80px;
+}
+
+.alert-message {
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+/* 프라이버시 안내 */
+.privacy-notice {
+  display: flex;
+  gap: 15px;
+  padding: 20px;
+  background: rgba(16, 185, 129, 0.2);
+  border-radius: 15px;
+  border-left: 4px solid #10b981;
+}
+
+.notice-icon {
+  font-size: 32px;
+  min-width: 40px;
+}
+
+.notice-content {
+  flex: 1;
+}
+
+.notice-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.notice-content p {
+  font-size: 14px;
+  line-height: 1.6;
+  opacity: 0.95;
+  margin: 0;
+}
+
+/* 비활성 상태 */
+.monitor-inactive {
+  text-align: center;
+  padding: 60px 40px;
+}
+
+.inactive-icon {
+  font-size: 80px;
+  margin-bottom: 20px;
+  opacity: 0.5;
+}
+
+.monitor-inactive h4 {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 15px 0;
+}
+
+.monitor-inactive p {
+  font-size: 16px;
+  line-height: 1.6;
+  opacity: 0.9;
+  margin: 0 0 30px 0;
+}
+
+.feature-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: inline-block;
+  text-align: left;
+}
+
+.feature-list li {
+  padding: 10px 20px;
+  margin-bottom: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  font-size: 15px;
+}
+
+.privacy-guarantee {
+  margin-top: 30px;
+  padding: 20px;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.3) 0%, rgba(5, 150, 105, 0.3) 100%);
+  border-radius: 15px;
+  border: 2px solid #10b981;
+  text-align: center;
+}
+
+.guarantee-icon {
+  font-size: 48px;
+  margin-bottom: 10px;
+}
+
+.privacy-guarantee strong {
+  display: block;
+  font-size: 18px;
+  margin-bottom: 8px;
+  color: #10b981;
+}
+
+.privacy-guarantee p {
+  font-size: 14px;
+  opacity: 0.95;
+  margin: 0;
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+  .continuous-voice-monitor {
+    padding: 20px;
+  }
+
+  .monitor-header {
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-start;
+  }
+
+  .monitor-toggle {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .status-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .indicator-item {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .alert-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .privacy-notice {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .monitor-inactive {
+    padding: 40px 20px;
+  }
+
+  .inactive-icon {
+    font-size: 60px;
+  }
+
+  .feature-list {
+    width: 100%;
+  }
+}

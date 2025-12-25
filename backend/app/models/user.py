@@ -6,9 +6,9 @@ from ..database import Base
 
 
 class Gender(str, enum.Enum):
-    MALE = "male"
-    FEMALE = "female"
-    OTHER = "other"
+    MALE = "MALE"
+    FEMALE = "FEMALE"
+    OTHER = "OTHER"
 
 
 class User(Base):
@@ -41,3 +41,6 @@ class User(Base):
     meditation_sessions = relationship("MeditationSession", back_populates="user", cascade="all, delete-orphan")
     music_sessions = relationship("MusicSession", back_populates="user", cascade="all, delete-orphan")
     sleep_records = relationship("SleepRecord", back_populates="user", cascade="all, delete-orphan")
+    meals = relationship("Meal", back_populates="user", cascade="all, delete-orphan")
+    disease_records = relationship("DiseaseRecord", back_populates="user", cascade="all, delete-orphan")
+    pregnancy_records = relationship("PregnancyRecord", back_populates="user", cascade="all, delete-orphan")

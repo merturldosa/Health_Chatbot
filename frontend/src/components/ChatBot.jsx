@@ -1,8 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
-import { chatAPI } from '../services/api';
+import { chatAPI, speechAPI, emotionAPI } from '../services/api';
 import { format } from 'date-fns';
 import ReactMarkdown from 'react-markdown';
 import { useChatLogger } from '../hooks/useChatLogger';
+import { analyzeVoiceTone } from '../utils/voiceAnalyzer';
 import './ChatBot.css';
 
 const ChatBot = () => {
@@ -19,8 +20,20 @@ const ChatBot = () => {
   const [showSessions, setShowSessions] = useState(false);
   const [showLogMenu, setShowLogMenu] = useState(false);
   const [speakingIndex, setSpeakingIndex] = useState(null);
+
+  // 음성 입력 관련 상태
+  const [isRecording, setIsRecording] = useState(false);
+  const [isTranscribing, setIsTranscribing] = useState(false);
+  const [recordingTime, setRecordingTime] = useState(0);
+  const [voiceToneAnalysis, setVoiceToneAnalysis] = useState(null);
+
   const messagesEndRef = useRef(null);
   const fileInputRef = useRef(null);
+  const mediaRecorderRef = useRef(null);
+  const audioChunksRef = useRef([]);
+  const recordingTimerRef = useRef(null);
+  const recordingStreamRef = useRef(null);
+  const voiceTonePromiseRef = useRef(null);
 
   // 대화 로그 자동 저장 훅
   const {
@@ -140,6 +153,200 @@ const ChatBot = () => {
     } catch (error) {
       console.error('로그 임포트 실패:', error);
       alert('로그 파일을 불러오는데 실패했습니다. JSON 형식을 확인해주세요.');
+    }
+  };
+
+  // 음성 녹음 시작
+  const startRecording = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      recordingStreamRef.current = stream;
+
+      const mediaRecorder = new MediaRecorder(stream);
+      mediaRecorderRef.current = mediaRecorder;
+      audioChunksRef.current = [];
+
+      mediaRecorder.ondataavailable = (event) => {
+        if (event.data.size > 0) {
+          audioChunksRef.current.push(event.data);
+        }
+      };
+
+      mediaRecorder.onstop = async () => {
+        // 녹음 완료 후 처리
+        const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
+        await processVoiceInput(audioBlob);
+
+        // 스트림 정리
+        if (recordingStreamRef.current) {
+          recordingStreamRef.current.getTracks().forEach((track) => track.stop());
+          recordingStreamRef.current = null;
+        }
+      };
+
+      mediaRecorder.start();
+      setIsRecording(true);
+      setRecordingTime(0);
+      setVoiceToneAnalysis(null);
+
+      // 녹음 타이머 시작
+      recordingTimerRef.current = setInterval(() => {
+        setRecordingTime((prev) => prev + 1);
+      }, 1000);
+
+      // 음성 톤 분석 시작 (병렬 실행)
+      // 녹음과 동시에 실시간 음성 톤 분석
+      console.log('🎤 음성 녹음 시작 + 음성 톤 분석 시작');
+      voiceTonePromiseRef.current = analyzeVoiceTone(stream, 10000) // 최대 10초
+        .then((analysis) => {
+          console.log('🎭 음성 톤 분석 완료:', analysis);
+          setVoiceToneAnalysis(analysis);
+          return analysis;
+        })
+        .catch((error) => {
+          console.error('음성 톤 분석 오류:', error);
+          // 실패해도 진행 (텍스트 감정 분석만 수행)
+          return null;
+        });
+    } catch (error) {
+      console.error('마이크 권한 오류:', error);
+      alert('마이크 권한이 필요합니다. 브라우저 설정에서 마이크 접근을 허용해주세요.');
+    }
+  };
+
+  // 음성 녹음 중지
+  const stopRecording = () => {
+    if (mediaRecorderRef.current && isRecording) {
+      mediaRecorderRef.current.stop();
+      setIsRecording(false);
+
+      // 타이머 정리
+      if (recordingTimerRef.current) {
+        clearInterval(recordingTimerRef.current);
+        recordingTimerRef.current = null;
+      }
+
+      console.log('🎤 음성 녹음 중지');
+    }
+  };
+
+  // 음성 입력 처리 (STT + 음성 톤 + 감정 분석)
+  const processVoiceInput = async (audioBlob) => {
+    setIsTranscribing(true);
+
+    try {
+      // 1. 오디오 → Base64 변환
+      const reader = new FileReader();
+      const audioBase64 = await new Promise((resolve, reject) => {
+        reader.onloadend = () => {
+          const base64 = reader.result.split(',')[1];
+          resolve(base64);
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(audioBlob);
+      });
+
+      // 2. Google STT로 음성 → 텍스트 변환
+      console.log('🔄 음성을 텍스트로 변환 중...');
+      const sttResponse = await speechAPI.transcribe({
+        audio_base64: audioBase64,
+        language_code: 'ko-KR',
+        encoding: 'WEBM_OPUS',
+        sample_rate_hertz: 48000,
+      });
+
+      if (!sttResponse.data.success) {
+        throw new Error(sttResponse.data.error || '음성 인식 실패');
+      }
+
+      const transcript = sttResponse.data.transcript;
+      console.log('📝 변환된 텍스트:', transcript);
+
+      // 3. 음성 톤 분석 결과 대기 (이미 실행 중)
+      let voiceToneData = voiceToneAnalysis;
+      if (voiceTonePromiseRef.current && !voiceToneData) {
+        console.log('⏳ 음성 톤 분석 완료 대기 중...');
+        try {
+          voiceToneData = await voiceTonePromiseRef.current;
+        } catch (error) {
+          console.warn('음성 톤 분석 실패, 텍스트 감정 분석만 진행:', error);
+          voiceToneData = null;
+        }
+      }
+
+      // 4. 감정 분석 (텍스트 + 음성 톤)
+      console.log('🎭 감정 분석 중...');
+      const emotionResponse = await emotionAPI.analyze({
+        text: transcript,
+        voice_analysis: voiceToneData, // 음성 톤 데이터 포함!
+      });
+
+      const emotionData = emotionResponse.data;
+      console.log('😊 종합 감정 분석 결과:', emotionData);
+
+      // 5. 텍스트를 input에 설정하고 감정 데이터 포함
+      setInput(transcript);
+
+      // 6. AI 챗봇에 전송 (감정 정보 포함)
+      await sendMessageWithEmotion(transcript, emotionData);
+    } catch (error) {
+      console.error('음성 처리 오류:', error);
+      alert(`음성 처리 중 오류가 발생했습니다: ${error.message || error}`);
+    } finally {
+      setIsTranscribing(false);
+      voiceTonePromiseRef.current = null;
+    }
+  };
+
+  // 감정 정보 포함하여 메시지 전송
+  const sendMessageWithEmotion = async (text, emotionData) => {
+    if (!text.trim() || loading) return;
+
+    const userMessage = {
+      role: 'user',
+      message: text,
+      emotion: emotionData, // 감정 데이터 포함
+    };
+
+    setMessages((prev) => [...prev, userMessage]);
+    setLoading(true);
+    setInput(''); // 입력창 초기화
+
+    try {
+      const response = await chatAPI.symptomCheck({
+        message: text,
+        chat_type: 'symptom_check',
+        session_id: sessionId,
+      });
+
+      setSessionId(response.data.session_id);
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: 'assistant',
+          message: response.data.message,
+          urgency_level: response.data.urgency_level,
+          suggested_action: response.data.suggested_action,
+          response_style: emotionData.response_style, // AI 응답 스타일
+        },
+      ]);
+
+      fetchSessions();
+    } catch (error) {
+      console.error('채팅 오류:', error);
+      const errorMessage =
+        error.response?.data?.detail ||
+        error.message ||
+        '죄송합니다. 오류가 발생했습니다. 다시 시도해주세요.';
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: 'assistant',
+          message: `오류: ${errorMessage}`,
+        },
+      ]);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -268,6 +475,25 @@ const ChatBot = () => {
         {messages.map((msg, index) => (
           <div key={index} className={`message ${msg.role}`}>
             <div className="message-content">
+              {/* 사용자 메시지에 감정 아이콘 표시 */}
+              {msg.role === 'user' && msg.emotion && (
+                <div className="emotion-indicator">
+                  <span className="emotion-icon" title={msg.emotion.primary_emotion}>
+                    {msg.emotion.emotion_icon}
+                  </span>
+                  <span className="emotion-label">
+                    {msg.emotion.sentiment === 'positive' ? '긍정적' : msg.emotion.sentiment === 'negative' ? '부정적' : '중립적'}
+                  </span>
+                  {/* 음성 톤 분석 정보 표시 */}
+                  {msg.emotion.voice_analysis && msg.emotion.voice_analysis.voice_detected && (
+                    <span className="voice-tone-badge" title="음성 톤 분석">
+                      🎙️
+                      {msg.emotion.voice_analysis.overall_status === 'concern' ? '긴장' :
+                       msg.emotion.voice_analysis.overall_status === 'attention' ? '주의' : '정상'}
+                    </span>
+                  )}
+                </div>
+              )}
               <ReactMarkdown>{msg.message}</ReactMarkdown>
               {msg.urgency_level && (
                 <div className={`urgency-badge ${msg.urgency_level}`}>
@@ -304,17 +530,47 @@ const ChatBot = () => {
       </div>
 
       <div className="input-container">
+        {/* 음성 녹음 상태 표시 */}
+        {isRecording && (
+          <div className="recording-indicator">
+            <span className="recording-dot"></span>
+            <span>녹음 중... {recordingTime}초</span>
+          </div>
+        )}
+        {isTranscribing && (
+          <div className="transcribing-indicator">
+            <span>🔄 음성을 텍스트로 변환 중...</span>
+          </div>
+        )}
+
         <textarea
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyPress={handleKeyPress}
-          placeholder="증상을 설명해주세요..."
+          placeholder="증상을 설명해주세요... (🎤 버튼으로 음성 입력)"
           rows="3"
-          disabled={loading}
+          disabled={loading || isRecording || isTranscribing}
         />
-        <button onClick={handleSend} disabled={loading || !input.trim()}>
-          전송
-        </button>
+
+        <div className="input-buttons">
+          {/* 마이크 버튼 */}
+          <button
+            className={`mic-btn ${isRecording ? 'recording' : ''}`}
+            onClick={isRecording ? stopRecording : startRecording}
+            disabled={loading || isTranscribing}
+            title={isRecording ? '녹음 중지' : '음성 입력'}
+          >
+            {isRecording ? '⏹️' : '🎤'}
+          </button>
+
+          {/* 전송 버튼 */}
+          <button
+            onClick={handleSend}
+            disabled={loading || !input.trim() || isRecording || isTranscribing}
+          >
+            전송
+          </button>
+        </div>
       </div>
     </div>
   );

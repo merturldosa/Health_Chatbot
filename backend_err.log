@@ -1,0 +1,464 @@
+INFO:     Will watch for changes in these directories: ['D:\\prj\\campus\\GJ-ICT\\lp']
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [32612] using WatchFiles
+Process SpawnProcess-1:
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\multiprocessing\process.py", line 314, in _bootstrap
+    self.run()
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\multiprocessing\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\_subprocess.py", line 76, in subprocess_started
+    target(sockets=sockets)
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\server.py", line 61, in run
+    return asyncio.run(self.serve(sockets=sockets))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\asyncio\base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\server.py", line 68, in serve
+    config.load()
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\config.py", line 467, in load
+    self.loaded_app = import_from_string(self.app)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\importer.py", line 24, in import_from_string
+    raise exc from None
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\importer.py", line 21, in import_from_string
+    module = importlib.import_module(module_str)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\importlib\__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1204, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1126, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1204, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1140, in _find_and_load_unlocked
+ModuleNotFoundError: No module named 'app'
+WARNING:  WatchFiles detected changes in 'backend\app\main.py'. Reloading...
+Process SpawnProcess-2:
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\multiprocessing\process.py", line 314, in _bootstrap
+    self.run()
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\multiprocessing\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\_subprocess.py", line 76, in subprocess_started
+    target(sockets=sockets)
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\server.py", line 61, in run
+    return asyncio.run(self.serve(sockets=sockets))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\asyncio\base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\server.py", line 68, in serve
+    config.load()
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\config.py", line 467, in load
+    self.loaded_app = import_from_string(self.app)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\importer.py", line 24, in import_from_string
+    raise exc from None
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\importer.py", line 21, in import_from_string
+    module = importlib.import_module(module_str)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\importlib\__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1204, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1126, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1204, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1140, in _find_and_load_unlocked
+ModuleNotFoundError: No module named 'app'
+WARNING:  WatchFiles detected changes in 'node_modules\@electron\node-gyp\gyp\pylib\gyp\input_test.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\common.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\win_tool.py', 'node_modules\@electron\node-gyp\gyp\test_gyp.py', 'node_modules\@electron\node-gyp\gyp\pylib\packaging\requirements.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\common_test.py', 'node_modules\@electron\node-gyp\gyp\pylib\packaging\__init__.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\generator\msvs.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\generator\gypsh.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\flock_tool.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\MSVSUtil.py', 'node_modules\@electron\node-gyp\gyp\pylib\packaging\metadata.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\generator\xcode_test.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\input.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\xcode_emulation_test.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\xcodeproj_file.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\easy_xml_test.py', 'node_modules\@electron\node-gyp\gyp\pylib\packaging\_structures.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\generator\android.py', 'node_modules\@electron\node-gyp\gyp\pylib\packaging\markers.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\easy_xml.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\MSVSToolFile.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\xml_fix.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\generator\xcode.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\generator\make.py', 'node_modules\@electron\node-gyp\gyp\pylib\packaging\_musllinux.py', 'node_modules\@electron\node-gyp\gyp\pylib\packaging\tags.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\xcode_ninja.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\generator\ninja.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\MSVSProject.py', 'node_modules\@electron\node-gyp\gyp\pylib\packaging\_tokenizer.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\__init__.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\generator\ninja_test.py', 'node_modules\@electron\node-gyp\gyp\pylib\packaging\_parser.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\ninja_syntax.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\mac_tool.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\generator\compile_commands_json.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\xcode_emulation.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\generator\eclipse.py', 'node_modules\@electron\node-gyp\gyp\pylib\packaging\specifiers.py', 'node_modules\@electron\node-gyp\gyp\pylib\packaging\_manylinux.py', 'node_modules\@electron\node-gyp\gyp\pylib\packaging\version.py', 'node_modules\@electron\node-gyp\gyp\pylib\packaging\utils.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\generator\dump_dependency_json.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\MSVSVersion.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\MSVSUserFile.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\generator\analyzer.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\simple_copy.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\MSVSNew.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\generator\cmake.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\MSVSSettings.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\generator\__init__.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\generator\msvs_test.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\msvs_emulation.py', 'node_modules\@electron\node-gyp\gyp\pylib\packaging\_elffile.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\generator\gypd.py', 'node_modules\@electron\node-gyp\gyp\gyp_main.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\MSVSSettings_test.py'. Reloading...
+Process SpawnProcess-3:
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\multiprocessing\process.py", line 314, in _bootstrap
+    self.run()
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\multiprocessing\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\_subprocess.py", line 76, in subprocess_started
+    target(sockets=sockets)
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\server.py", line 61, in run
+    return asyncio.run(self.serve(sockets=sockets))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\asyncio\base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\server.py", line 68, in serve
+    config.load()
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\config.py", line 467, in load
+    self.loaded_app = import_from_string(self.app)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\importer.py", line 24, in import_from_string
+    raise exc from None
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\importer.py", line 21, in import_from_string
+    module = importlib.import_module(module_str)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\importlib\__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1204, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1126, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1204, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1140, in _find_and_load_unlocked
+ModuleNotFoundError: No module named 'app'
+WARNING:  WatchFiles detected changes in 'node_modules\dmg-builder\vendor\biplist\__init__.py', 'node_modules\dmg-builder\vendor\mac_alias\utils.py', 'node_modules\dmg-builder\vendor\dmgbuild\badge.py', 'node_modules\dmg-builder\vendor\mac_alias\alias.py', 'node_modules\dmg-builder\vendor\mac_alias\bookmark.py', 'node_modules\dmg-builder\vendor\dmgbuild\colors.py', 'node_modules\dmg-builder\vendor\ds_store\buddy.py', 'node_modules\dmg-builder\vendor\mac_alias\osx.py', 'node_modules\dmg-builder\vendor\mac_alias\__init__.py', 'node_modules\dmg-builder\vendor\ds_store\store.py', 'node_modules\dmg-builder\vendor\ds_store\__init__.py', 'node_modules\dmg-builder\vendor\dmgbuild\core.py'. Reloading...
+Process SpawnProcess-4:
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\multiprocessing\process.py", line 314, in _bootstrap
+    self.run()
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\multiprocessing\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\_subprocess.py", line 76, in subprocess_started
+    target(sockets=sockets)
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\server.py", line 61, in run
+    return asyncio.run(self.serve(sockets=sockets))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\asyncio\base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\server.py", line 68, in serve
+    config.load()
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\config.py", line 467, in load
+    self.loaded_app = import_from_string(self.app)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\importer.py", line 24, in import_from_string
+    raise exc from None
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\importer.py", line 21, in import_from_string
+    module = importlib.import_module(module_str)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\importlib\__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1204, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1126, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1204, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1140, in _find_and_load_unlocked
+ModuleNotFoundError: No module named 'app'
+WARNING:  WatchFiles detected changes in 'node_modules\shell-quote\print.py'. Reloading...
+Process SpawnProcess-5:
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\multiprocessing\process.py", line 314, in _bootstrap
+    self.run()
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\multiprocessing\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\_subprocess.py", line 76, in subprocess_started
+    target(sockets=sockets)
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\server.py", line 61, in run
+    return asyncio.run(self.serve(sockets=sockets))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\asyncio\base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\server.py", line 68, in serve
+    config.load()
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\config.py", line 467, in load
+    self.loaded_app = import_from_string(self.app)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\importer.py", line 24, in import_from_string
+    raise exc from None
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\importer.py", line 21, in import_from_string
+    module = importlib.import_module(module_str)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\importlib\__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1204, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1126, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1204, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1140, in _find_and_load_unlocked
+ModuleNotFoundError: No module named 'app'
+WARNING:  WatchFiles detected changes in 'node_modules\dmg-builder\vendor\ds_store\__init__.py', 'node_modules\dmg-builder\vendor\biplist\__init__.py', 'node_modules\dmg-builder\vendor\mac_alias\alias.py', 'node_modules\dmg-builder\vendor\mac_alias\__init__.py', 'node_modules\shell-quote\print.py'. Reloading...
+Process SpawnProcess-6:
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\multiprocessing\process.py", line 314, in _bootstrap
+    self.run()
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\multiprocessing\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\_subprocess.py", line 76, in subprocess_started
+    target(sockets=sockets)
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\server.py", line 61, in run
+    return asyncio.run(self.serve(sockets=sockets))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\asyncio\base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\server.py", line 68, in serve
+    config.load()
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\config.py", line 467, in load
+    self.loaded_app = import_from_string(self.app)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\importer.py", line 24, in import_from_string
+    raise exc from None
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\importer.py", line 21, in import_from_string
+    module = importlib.import_module(module_str)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\importlib\__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1204, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1126, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1204, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1140, in _find_and_load_unlocked
+ModuleNotFoundError: No module named 'app'
+WARNING:  WatchFiles detected changes in 'node_modules\dmg-builder\vendor\dmgbuild\badge.py', 'node_modules\dmg-builder\vendor\mac_alias\alias.py', 'node_modules\dmg-builder\vendor\ds_store\buddy.py', 'node_modules\dmg-builder\vendor\dmgbuild\core.py', 'node_modules\dmg-builder\vendor\mac_alias\bookmark.py', 'node_modules\dmg-builder\vendor\dmgbuild\colors.py'. Reloading...
+Process SpawnProcess-7:
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\multiprocessing\process.py", line 314, in _bootstrap
+    self.run()
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\multiprocessing\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\_subprocess.py", line 76, in subprocess_started
+    target(sockets=sockets)
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\server.py", line 61, in run
+    return asyncio.run(self.serve(sockets=sockets))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\asyncio\base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\server.py", line 68, in serve
+    config.load()
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\config.py", line 467, in load
+    self.loaded_app = import_from_string(self.app)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\importer.py", line 24, in import_from_string
+    raise exc from None
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\importer.py", line 21, in import_from_string
+    module = importlib.import_module(module_str)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\importlib\__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1204, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1126, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1204, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1140, in _find_and_load_unlocked
+ModuleNotFoundError: No module named 'app'
+WARNING:  WatchFiles detected changes in 'node_modules\dmg-builder\vendor\mac_alias\osx.py', 'node_modules\dmg-builder\vendor\mac_alias\utils.py', 'node_modules\dmg-builder\vendor\ds_store\store.py'. Reloading...
+Process SpawnProcess-8:
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\multiprocessing\process.py", line 314, in _bootstrap
+    self.run()
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\multiprocessing\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\_subprocess.py", line 76, in subprocess_started
+    target(sockets=sockets)
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\server.py", line 61, in run
+    return asyncio.run(self.serve(sockets=sockets))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\asyncio\base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\server.py", line 68, in serve
+    config.load()
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\config.py", line 467, in load
+    self.loaded_app = import_from_string(self.app)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\importer.py", line 24, in import_from_string
+    raise exc from None
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\importer.py", line 21, in import_from_string
+    module = importlib.import_module(module_str)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\importlib\__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1204, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1126, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1204, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1140, in _find_and_load_unlocked
+ModuleNotFoundError: No module named 'app'
+WARNING:  WatchFiles detected changes in 'node_modules\@electron\node-gyp\gyp\pylib\gyp\easy_xml.py', 'node_modules\@electron\node-gyp\gyp\pylib\packaging\_musllinux.py', 'node_modules\@electron\node-gyp\gyp\pylib\packaging\_tokenizer.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\common.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\easy_xml_test.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\generator\android.py', 'node_modules\@electron\node-gyp\gyp\pylib\packaging\_parser.py', 'node_modules\@electron\node-gyp\gyp\pylib\packaging\_manylinux.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\generator\gypd.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\input_test.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\common_test.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\generator\gypsh.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\flock_tool.py', 'node_modules\@electron\node-gyp\gyp\pylib\packaging\_structures.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\__init__.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\generator\compile_commands_json.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\generator\dump_dependency_json.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\generator\analyzer.py', 'node_modules\@electron\node-gyp\gyp\pylib\packaging\__init__.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\input.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\generator\eclipse.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\generator\cmake.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\generator\__init__.py', 'node_modules\@electron\node-gyp\gyp\pylib\packaging\_elffile.py', 'node_modules\@electron\node-gyp\gyp\gyp_main.py'. Reloading...
+Process SpawnProcess-9:
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\multiprocessing\process.py", line 314, in _bootstrap
+    self.run()
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\multiprocessing\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\_subprocess.py", line 76, in subprocess_started
+    target(sockets=sockets)
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\server.py", line 61, in run
+    return asyncio.run(self.serve(sockets=sockets))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\asyncio\base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\server.py", line 68, in serve
+    config.load()
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\config.py", line 467, in load
+    self.loaded_app = import_from_string(self.app)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\importer.py", line 24, in import_from_string
+    raise exc from None
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\importer.py", line 21, in import_from_string
+    module = importlib.import_module(module_str)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\importlib\__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1204, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1126, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1204, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1140, in _find_and_load_unlocked
+ModuleNotFoundError: No module named 'app'
+WARNING:  WatchFiles detected changes in 'node_modules\@electron\node-gyp\gyp\pylib\gyp\generator\msvs.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\MSVSUtil.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\xcode_emulation_test.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\generator\make.py', 'node_modules\@electron\node-gyp\gyp\pylib\packaging\tags.py', 'node_modules\@electron\node-gyp\gyp\pylib\packaging\specifiers.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\msvs_emulation.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\MSVSSettings_test.py', 'node_modules\@electron\node-gyp\gyp\pylib\packaging\requirements.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\xcodeproj_file.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\MSVSToolFile.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\ninja_syntax.py', 'node_modules\@electron\node-gyp\gyp\pylib\packaging\version.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\MSVSVersion.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\MSVSNew.py', 'node_modules\@electron\node-gyp\gyp\pylib\packaging\metadata.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\generator\xcode_test.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\xcode_ninja.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\generator\ninja.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\xcode_emulation.py', 'node_modules\@electron\node-gyp\gyp\pylib\packaging\utils.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\MSVSUserFile.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\MSVSSettings.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\win_tool.py', 'node_modules\@electron\node-gyp\gyp\test_gyp.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\input.py', 'node_modules\@electron\node-gyp\gyp\pylib\packaging\markers.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\xml_fix.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\generator\xcode.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\MSVSProject.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\generator\ninja_test.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\mac_tool.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\simple_copy.py', 'node_modules\@electron\node-gyp\gyp\pylib\gyp\generator\msvs_test.py'. Reloading...
+Process SpawnProcess-10:
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\multiprocessing\process.py", line 314, in _bootstrap
+    self.run()
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\multiprocessing\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\_subprocess.py", line 76, in subprocess_started
+    target(sockets=sockets)
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\server.py", line 61, in run
+    return asyncio.run(self.serve(sockets=sockets))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\asyncio\base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\server.py", line 68, in serve
+    config.load()
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\config.py", line 467, in load
+    self.loaded_app = import_from_string(self.app)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\importer.py", line 24, in import_from_string
+    raise exc from None
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\importer.py", line 21, in import_from_string
+    module = importlib.import_module(module_str)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\importlib\__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1204, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1126, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1204, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1140, in _find_and_load_unlocked
+ModuleNotFoundError: No module named 'app'
+WARNING:  WatchFiles detected changes in 'backend\app\main.py'. Reloading...
+Process SpawnProcess-11:
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\multiprocessing\process.py", line 314, in _bootstrap
+    self.run()
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\multiprocessing\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\_subprocess.py", line 76, in subprocess_started
+    target(sockets=sockets)
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\server.py", line 61, in run
+    return asyncio.run(self.serve(sockets=sockets))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\asyncio\base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\server.py", line 68, in serve
+    config.load()
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\config.py", line 467, in load
+    self.loaded_app = import_from_string(self.app)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\importer.py", line 24, in import_from_string
+    raise exc from None
+  File "D:\prj\campus\GJ-ICT\lp\backend\venv\Lib\site-packages\uvicorn\importer.py", line 21, in import_from_string
+    module = importlib.import_module(module_str)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\importlib\__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1204, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1126, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1204, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1140, in _find_and_load_unlocked
+ModuleNotFoundError: No module named 'app'

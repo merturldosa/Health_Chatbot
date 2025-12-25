@@ -8,6 +8,10 @@ class Settings(BaseSettings):
     # Google Gemini AI
     GEMINI_API_KEY: str = "temp-key-please-set-in-railway"
 
+    # Google Cloud Speech-to-Text
+    # 서비스 계정 JSON 파일 경로 (선택)
+    GOOGLE_APPLICATION_CREDENTIALS: Optional[str] = None
+
     # Database
     DATABASE_URL: str = "sqlite+aiosqlite:///./health_chatbot.db"
 

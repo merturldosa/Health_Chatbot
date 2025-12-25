@@ -1,0 +1,208 @@
+.health-sync-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: var(--bg-secondary, #F7FAFC);
+  min-height: 100vh;
+  color: var(--text-primary, #2D3748);
+}
+
+.sync-header {
+  margin-bottom: 2rem;
+}
+
+.subtitle {
+  color: var(--text-secondary, #718096);
+  margin-top: 0.5rem;
+}
+
+.back-btn {
+  background: none;
+  border: none;
+  color: var(--primary-color, #4299E1);
+  padding: 0;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  font-size: 1rem;
+  box-shadow: none;
+}
+
+.sync-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 2rem;
+}
+
+@media (max-width: 768px) {
+  .sync-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+section {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+h2 {
+  font-size: 1.25rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.5rem;
+}
+
+/* Source List Items */
+.source-item {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border: 1px solid #eee;
+  border-radius: 0.75rem;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+}
+
+.source-item.active {
+  border-color: var(--primary-color, #4299E1);
+  background-color: rgba(66, 153, 225, 0.05);
+}
+
+.source-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  margin-right: 1rem;
+  background: #f0f0f0;
+}
+
+.source-icon.apple { background: #000; color: white; }
+.source-icon.samsung { background: #1428A0; color: white; }
+.source-icon.fitbit { background: #00B0B9; color: white; }
+
+.source-info {
+  flex: 1;
+}
+
+.source-info h3 {
+  font-size: 1rem;
+  margin-bottom: 0.2rem;
+}
+
+.source-info p {
+  font-size: 0.8rem;
+  color: #888;
+}
+
+.toggle-btn {
+  padding: 0.4rem 1rem;
+  border-radius: 2rem;
+  font-size: 0.8rem;
+  background: #e2e8f0;
+  color: #4a5568;
+  box-shadow: none;
+}
+
+.toggle-btn.on {
+  background: var(--success-color, #48BB78);
+  color: white;
+}
+
+.sync-now-btn {
+  width: 100%;
+  padding: 1rem;
+  margin-top: 1rem;
+  border-radius: 0.75rem;
+  background: var(--primary-color, #4299E1);
+  color: white;
+  font-weight: bold;
+}
+
+.sync-now-btn:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+/* Data Cards */
+.data-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.data-card {
+  background: #f8fafc;
+  padding: 1.2rem;
+  border-radius: 1rem;
+  border: 1px solid #edf2f7;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.source-badge {
+  font-size: 0.7rem;
+  background: #e2e8f0;
+  padding: 0.2rem 0.5rem;
+  border-radius: 1rem;
+  color: #4a5568;
+}
+
+.card-value {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text-primary, #2D3748);
+  margin-bottom: 0.2rem;
+}
+
+.unit {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #718096;
+}
+
+.card-label {
+  font-size: 0.9rem;
+  color: #718096;
+}
+
+.progress-bar {
+  height: 6px;
+  background: #e2e8f0;
+  border-radius: 3px;
+  margin-top: 1rem;
+  overflow: hidden;
+}
+
+.progress-bar .fill {
+  height: 100%;
+  background: var(--success-color, #48BB78);
+  border-radius: 3px;
+}
+
+/* AI Insight */
+.ai-insight-box {
+  background: linear-gradient(135deg, rgba(66, 153, 225, 0.1) 0%, rgba(102, 126, 234, 0.1) 100%);
+  border: 1px solid rgba(66, 153, 225, 0.2);
+  padding: 1.5rem;
+  border-radius: 1rem;
+}
+
+.ai-insight-box h3 {
+  color: var(--primary-color, #2b6cb0);
+  margin-bottom: 0.8rem;
+}
+
+.ai-insight-box p {
+  line-height: 1.6;
+}

@@ -1,0 +1,66 @@
+{
+  "name": "health-chatbot-desktop",
+  "version": "1.0.0",
+  "description": "애고 (ego) - AI 건강 관리 데스크톱 앱",
+  "main": "electron/main.js",
+  "author": "GJ-ICT",
+  "license": "MIT",
+  "scripts": {
+    "electron:dev": "concurrently \"cd frontend && npm run dev\" \"wait-on http://localhost:5173 && electron .\"",
+    "electron:build": "cd frontend && npm run build && cd .. && electron-builder",
+    "electron:start": "electron ."
+  },
+  "build": {
+    "appId": "com.gjict.health-chatbot",
+    "productName": "애고 (ego)",
+    "directories": {
+      "buildResources": "electron",
+      "output": "dist-electron"
+    },
+    "files": [
+      "electron/**/*",
+      "frontend/dist/**/*"
+    ],
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ],
+      "icon": "electron/icon.png"
+    },
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "icon": "electron/icon.png",
+      "category": "public.app-category.healthcare-fitness"
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "icon": "electron/icon.png",
+      "category": "Health"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "electron": "^39.1.1",
+    "electron-builder": "^26.0.12",
+    "wait-on": "^9.0.3"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.0.0",
+    "@capacitor/cli": "^8.0.0",
+    "@capacitor/core": "^8.0.0",
+    "astral-regex": "^2.0.0"
+  }
+}

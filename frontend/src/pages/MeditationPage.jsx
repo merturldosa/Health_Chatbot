@@ -49,8 +49,14 @@ const MeditationPage = () => {
   const startSession = () => {
     setIsActive(true);
 
-    // 음성 안내 시작
-    speakInstruction(selectedProgram.instructions[0]);
+    // 명상 프로그램별 시작 음성 안내
+    if (selectedProgram.type === 'meditation') {
+      speakInstruction(`${selectedProgram.title}를 시작합니다. 편안한 자세로 앉아 눈을 감고 호흡에 집중해주세요.`);
+    } else if (selectedProgram.type === 'breathing') {
+      speakInstruction('호흡 운동을 시작합니다. 안내에 따라 호흡해주세요.');
+    } else if (selectedProgram.type === 'guided') {
+      speakInstruction('가이드 명상을 시작합니다. 편안히 앉아 안내를 들어주세요.');
+    }
   };
 
   const pauseSession = () => {
@@ -84,11 +90,28 @@ const MeditationPage = () => {
   };
 
   const speakInstruction = (text) => {
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'ko-KR';
-    utterance.rate = 0.9;
-    utterance.pitch = 1.0;
-    window.speechSynthesis.speak(utterance);
+    try {
+      // 이전 음성 안내 취소
+      window.speechSynthesis.cancel();
+
+      // 약간의 지연 후 새 음성 안내 시작 (취소 후 즉시 실행 방지)
+      setTimeout(() => {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'ko-KR';
+        utterance.rate = 0.85; // 더 느리고 차분하게
+        utterance.pitch = 0.95; // 약간 낮은 톤
+        utterance.volume = 1.0;
+
+        // 에러 핸들링
+        utterance.onerror = (event) => {
+          console.error('TTS error:', event);
+        };
+
+        window.speechSynthesis.speak(utterance);
+      }, 100);
+    } catch (error) {
+      console.error('음성 안내 오류:', error);
+    }
   };
 
   // 타이머 로직
@@ -116,7 +139,7 @@ const MeditationPage = () => {
         { phase: 'inhale', duration: 4, text: '들이마시기' },
         { phase: 'hold', duration: 4, text: '참기' },
         { phase: 'exhale', duration: 4, text: '내쉬기' },
-        { phase: 'rest', duration: 4, text: '참기' },
+        { phase: 'rest', duration: 4, text: '휴식' },
       ],
       '478_breathing': [
         { phase: 'inhale', duration: 4, text: '들이마시기' },
@@ -135,10 +158,8 @@ const MeditationPage = () => {
       const step = pattern[currentStep];
       setBreathPhase(step.phase);
 
-      // 음성 안내
-      if (breathCount === 0 || currentStep === 0) {
-        speakInstruction(step.text);
-      }
+      // 음성 안내 (각 단계마다 안내)
+      speakInstruction(step.text);
 
       stepTimer = setTimeout(() => {
         currentStep++;

@@ -4,6 +4,8 @@ from sqlalchemy import func, desc
 from typing import List, Optional
 from datetime import datetime, timedelta
 import json
+import asyncio
+from concurrent.futures import ThreadPoolExecutor
 
 from ..database import get_db
 from ..models.user import User
@@ -19,8 +21,8 @@ router = APIRouter(prefix="/api/mood-records", tags=["mood-records"])
 genai.configure(api_key=settings.GEMINI_API_KEY)
 
 
-def get_ai_mood_analysis(mood_data: dict) -> tuple[str, str]:
-    """Gemini API를 사용한 감정 분석 및 조언"""
+def get_ai_mood_analysis_sync(mood_data: dict) -> tuple[str, str]:
+    """Gemini API를 사용한 감정 분석 및 조언 (동기 버전)"""
     try:
         model = genai.GenerativeModel('gemini-1.5-pro')
 
@@ -88,10 +90,33 @@ def get_ai_mood_analysis(mood_data: dict) -> tuple[str, str]:
     except Exception as e:
         print(f"AI analysis error: {e}")
         # 기본 메시지 반환
+        mood_korean = {
+            "very_happy": "매우 행복함",
+            "happy": "행복함",
+            "neutral": "보통",
+            "sad": "슬픔",
+            "very_sad": "매우 슬픔",
+            "angry": "화남",
+            "anxious": "불안함",
+            "stressed": "스트레스",
+            "tired": "피곤함",
+            "excited": "신남"
+        }
+        mood_text = mood_korean.get(mood_data.get("mood_level", ""), "보통")
         return (
             f"현재 {mood_text} 상태를 경험하고 계시는군요. 감정을 기록해주셔서 감사합니다.",
             "규칙적인 감정 기록은 자신을 더 잘 이해하는 데 도움이 됩니다. 계속해서 기록해주세요."
         )
+
+
+# ThreadPoolExecutor for running sync AI calls in async context
+executor = ThreadPoolExecutor(max_workers=3)
+
+
+async def get_ai_mood_analysis(mood_data: dict) -> tuple[str, str]:
+    """Gemini API를 사용한 감정 분석 및 조언 (비동기 래퍼)"""
+    loop = asyncio.get_event_loop()
+    return await loop.run_in_executor(executor, get_ai_mood_analysis_sync, mood_data)
 
 
 @router.post("/", response_model=MoodRecordResponse)
@@ -102,7 +127,7 @@ async def create_mood_record(
 ):
     """새로운 감정 기록 생성 (AI 분석 포함)"""
 
-    # AI 분석 수행
+    # AI 분석 수행 (비동기)
     analysis_data = {
         "mood_level": mood_data.mood_level,
         "mood_intensity": mood_data.mood_intensity,
@@ -111,7 +136,7 @@ async def create_mood_record(
         "triggers": mood_data.triggers
     }
 
-    ai_analysis, ai_advice = get_ai_mood_analysis(analysis_data)
+    ai_analysis, ai_advice = await get_ai_mood_analysis(analysis_data)
 
     # 리스트를 JSON 문자열로 변환
     activities_json = json.dumps(mood_data.activities, ensure_ascii=False) if mood_data.activities else None

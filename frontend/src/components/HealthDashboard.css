@@ -180,12 +180,26 @@
   box-shadow: var(--shadow-md);
   margin-bottom: 24px;
   border: 2px solid var(--border-color);
+  overflow: visible;
+  min-height: 340px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 @media (min-width: 768px) {
   .chart-container {
     padding: 28px;
   }
+}
+
+/* Recharts 스타일 오버라이드 */
+.chart-container .recharts-wrapper {
+  margin: 0 auto;
+}
+
+.chart-container .recharts-surface {
+  overflow: visible;
 }
 
 .records-list {

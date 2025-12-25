@@ -35,14 +35,14 @@ async def register(user_data: UserCreate, db: AsyncSession = Depends(get_db)):
     # 비밀번호 해시
     hashed_password = AuthService.get_password_hash(user_data.password)
 
-    # 사용자 생성
+    # 사용자 생성 (빈 문자열을 None으로 변환)
     new_user = User(
         email=user_data.email,
         username=user_data.username,
         hashed_password=hashed_password,
         full_name=user_data.full_name,
         age=user_data.age,
-        gender=user_data.gender,
+        gender=user_data.gender if user_data.gender else None,
         phone=user_data.phone,
         chronic_conditions=user_data.chronic_conditions,
         allergies=user_data.allergies,

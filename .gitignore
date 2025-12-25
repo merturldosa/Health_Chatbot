@@ -1,43 +1,45 @@
-.gitignore
+# Node.js
+node_modules/
+dist/
+dist-ssr/
+*.local
 
-# Project files
-*prd*
+# Firebase
+.firebase/
+firestore.indexes.json
+firestore.rules
+database.rules
+storage.rules
 
-# Log files (specific patterns only)
-*_log.txt
-backend_log.txt
-claude_log.txt
-
-# Environment variables
+# Environment
 .env
-.env.local
-.env.*.local
+.env.*
+!.env.example
 
 # IDEs
 .vscode/
 .idea/
-.claude/
 *.swp
 *.swo
-*~
 
 # OS
 .DS_Store
 Thumbs.db
+nul
 
-# Logs
-*.log
-logs/
+# Mobile
+android/app/build/
+android/.gradle/
+ios/App/App/public/
 
-# Temporary files
-*.tmp
-*.temp
-
-# Database files (개발용만)
-*.db
-*.sqlite
-*.sqlite3
-
-# Backup files
-*.bak
-*.backup
+# Backend
+__pycache__/
+*.pyc
+backend/health_chatbot.db
+backend/venv/
+backend/backend_start.log
+backend/backend_log.txt
+backend/backend_out.log
+backend/backend_err.log
+frontend_out.log
+frontend_err.log

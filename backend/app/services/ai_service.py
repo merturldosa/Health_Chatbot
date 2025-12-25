@@ -35,7 +35,7 @@ class AIService:
         }
 
         self.model = genai.GenerativeModel(
-            model_name="gemini-1.5-flash",  # Gemini 1.5 Flash (안정적)
+            model_name="gemini-1.5-pro",  # Gemini 1.5 Pro (더 정확한 건강 상담)
             generation_config=generation_config,
             safety_settings=safety_settings
         )

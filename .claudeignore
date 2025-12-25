@@ -1,0 +1,4 @@
+nul
+frontend/node_modules/
+backend/venv/
+android/app/build/

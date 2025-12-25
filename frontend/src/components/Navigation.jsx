@@ -17,45 +17,47 @@ const Navigation = () => {
   const isActive = (path) => location.pathname === path;
 
   return (
-    <nav className="navigation">
+    <nav className="navigation-modern">
       <div className="nav-container">
         <div className="nav-brand">
-          <Link to="/">🏥 AI 건강 챗봇</Link>
+          <Link to="/" className="brand-logo">
+            <span className="logo-icon">✨</span>
+            <span className="logo-text">VITALITY <span className="text-primary-color">TECH</span></span>
+          </Link>
         </div>
+        
         {user && (
           <>
             <div className="nav-links">
-              <Link to="/chat" className={isActive('/chat') ? 'active' : ''}>
-                💬 채팅
-              </Link>
-              <Link to="/health" className={isActive('/health') ? 'active' : ''}>
-                📊 건강 기록
-              </Link>
-              <Link to="/medication" className={isActive('/medication') ? 'active' : ''}>
-                💊 복약 관리
-              </Link>
-              <Link to="/mood" className={isActive('/mood') ? 'active' : ''}>
-                🎭 감정 일기
-              </Link>
-              <Link to="/meditation" className={isActive('/meditation') ? 'active' : ''}>
-                🧘 명상
-              </Link>
-              <Link to="/music" className={isActive('/music') ? 'active' : ''}>
-                🎵 음악
-              </Link>
+              {[
+                { path: '/chat', label: 'AI 상담', icon: '💬' },
+                { path: '/health', label: '대시보드', icon: '📊' },
+                { path: '/medication', label: '복약', icon: '💊' },
+                { path: '/mood', label: '정신건강', icon: '🧠' },
+                { path: '/health-sync', label: '연동', icon: '🔄' },
+              ].map((link) => (
+                <Link 
+                  key={link.path}
+                  to={link.path} 
+                  className={`nav-item ${isActive(link.path) ? 'active' : ''}`}
+                >
+                  <span className="icon">{link.icon}</span>
+                  <span className="label">{link.label}</span>
+                </Link>
+              ))}
             </div>
-            <div className="nav-user">
-              <button
-                onClick={toggleTheme}
-                className="theme-toggle-btn"
-                title={theme === 'dark' ? '라이트 모드' : '다크 모드'}
-              >
+            
+            <div className="nav-actions">
+              <button onClick={toggleTheme} className="icon-btn">
                 {theme === 'dark' ? '☀️' : '🌙'}
               </button>
-              <span>안녕하세요, {user.username}님</span>
-              <button onClick={handleLogout} className="logout-btn">
-                로그아웃
-              </button>
+              <div className="user-profile">
+                <div className="avatar">{user.username[0].toUpperCase()}</div>
+                <div className="user-info">
+                  <span className="user-name">{user.username}님</span>
+                  <button onClick={handleLogout} className="logout-link">로그아웃</button>
+                </div>
+              </div>
             </div>
           </>
         )}

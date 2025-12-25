@@ -4,14 +4,21 @@ import { ThemeProvider } from './context/ThemeContext';
 import Navigation from './components/Navigation';
 import AIAssistant from './components/AIAssistant';
 import HomePage from './pages/HomePage';
+import DashboardPage from './pages/DashboardPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import ChatBot from './components/ChatBot';
 import HealthDashboard from './components/HealthDashboard';
 import MedicationTracker from './components/MedicationTracker';
 import MoodTracker from './components/MoodTracker';
+import SleepTracker from './components/SleepTracker';
+import DiseaseManagement from './components/DiseaseManagement';
+import PregnancyChildcare from './components/PregnancyChildcare';
+import NutritionManagement from './components/NutritionManagement';
 import MeditationPage from './pages/MeditationPage';
 import MusicTherapyPage from './pages/MusicTherapyPage';
+import ChatPage from './pages/ChatPage';
+import HealthSyncPreviewPage from './pages/HealthSyncPreviewPage';
 import './App.css';
 
 const PrivateRoute = ({ children }) => {
@@ -39,7 +46,7 @@ function AppContent() {
               path="/"
               element={
                 <PrivateRoute>
-                  <HomePage />
+                  <DashboardPage />
                 </PrivateRoute>
               }
             />
@@ -76,6 +83,38 @@ function AppContent() {
               }
             />
             <Route
+              path="/sleep"
+              element={
+                <PrivateRoute>
+                  <SleepTracker />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/disease"
+              element={
+                <PrivateRoute>
+                  <DiseaseManagement />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/pregnancy"
+              element={
+                <PrivateRoute>
+                  <PregnancyChildcare />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/nutrition"
+              element={
+                <PrivateRoute>
+                  <NutritionManagement />
+                </PrivateRoute>
+              }
+            />
+            <Route
               path="/meditation"
               element={
                 <PrivateRoute>
@@ -88,6 +127,22 @@ function AppContent() {
               element={
                 <PrivateRoute>
                   <MusicTherapyPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/messages"
+              element={
+                <PrivateRoute>
+                  <ChatPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/health-sync"
+              element={
+                <PrivateRoute>
+                  <HealthSyncPreviewPage />
                 </PrivateRoute>
               }
             />

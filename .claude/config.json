@@ -1,0 +1,14 @@
+{
+  "hooks": {
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/save-conversation-log.sh"
+          }
+        ]
+      }
+    ]
+  }
+}

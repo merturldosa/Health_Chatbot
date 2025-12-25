@@ -1,0 +1,955 @@
+.pregnancy-childcare {
+  padding: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  color: white;
+}
+
+.pregnancy-childcare .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.pregnancy-childcare .header h2 {
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.mode-selector {
+  display: flex;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 5px;
+  border-radius: 25px;
+}
+
+.mode-selector button {
+  padding: 10px 20px;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.mode-selector button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.mode-selector button.active {
+  background: linear-gradient(135deg, #ec4899 0%, #f97316 100%);
+  color: white;
+}
+
+/* 임신 관리 모드 */
+.pregnancy-mode {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.pregnancy-overview {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 20px;
+}
+
+.pregnancy-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 25px;
+}
+
+.pregnancy-card.main-info {
+  display: flex;
+  gap: 25px;
+  align-items: center;
+}
+
+.week-circle {
+  min-width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ec4899 0%, #f97316 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 30px rgba(236, 72, 153, 0.3);
+}
+
+.week-number {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.week-label {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.pregnancy-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.info-item .label {
+  font-size: 15px;
+  opacity: 0.8;
+  font-weight: 600;
+}
+
+.info-item .value {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.info-item .value.highlight {
+  color: #ec4899;
+  font-size: 18px;
+}
+
+.pregnancy-card.weight-info h4,
+.pregnancy-card.checkup-info h4 {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 20px 0;
+  text-align: center;
+}
+
+.weight-comparison {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.weight-item {
+  text-align: center;
+}
+
+.weight-label {
+  font-size: 13px;
+  opacity: 0.8;
+  margin-bottom: 8px;
+}
+
+.weight-value {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.weight-arrow {
+  font-size: 24px;
+}
+
+.weight-gain {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: #f97316;
+  margin-top: 15px;
+}
+
+.checkup-date {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 700;
+  margin: 20px 0;
+}
+
+.schedule-btn {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%);
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.schedule-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(139, 92, 246, 0.4);
+}
+
+/* 태교 활동 */
+.prenatal-care-section {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 25px;
+}
+
+.prenatal-care-section h3 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.care-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.care-item {
+  display: grid;
+  grid-template-columns: 100px 150px 80px 1fr;
+  gap: 15px;
+  align-items: center;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border-left: 3px solid #ec4899;
+}
+
+.care-date {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.care-type {
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.care-duration {
+  font-size: 14px;
+  color: #fbbf24;
+}
+
+.care-notes {
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.add-care-btn {
+  width: 100%;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px dashed rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.add-care-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* AI 조언 */
+.pregnancy-tips,
+.postpartum-tips,
+.childcare-tips {
+  background: linear-gradient(135deg, rgba(52, 211, 153, 0.2) 0%, rgba(16, 185, 129, 0.2) 100%);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 25px;
+}
+
+.pregnancy-tips h3,
+.postpartum-tips h3,
+.childcare-tips h3 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.tip-card {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 20px;
+}
+
+.tip-card p {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.tip-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tip-card ul li {
+  padding: 10px 15px;
+  margin-bottom: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+/* 산후조리 모드 */
+.postpartum-mode {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.postpartum-overview {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+}
+
+.recovery-status,
+.depression-screening {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 25px;
+}
+
+.recovery-status h3,
+.depression-screening h3 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.status-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.status-item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.status-icon {
+  font-size: 32px;
+}
+
+.status-label {
+  font-size: 16px;
+  font-weight: 600;
+  opacity: 0.9;
+}
+
+.status-bar {
+  width: 100%;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.status-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #4ade80 0%, #22c55e 100%);
+  border-radius: 10px;
+  transition: width 0.5s ease;
+}
+
+.status-value {
+  font-size: 20px;
+  font-weight: 700;
+  color: #4ade80;
+}
+
+.screening-description {
+  font-size: 15px;
+  line-height: 1.6;
+  opacity: 0.9;
+  margin-bottom: 20px;
+}
+
+.screening-btn {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #ec4899 0%, #f97316 100%);
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.screening-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(236, 72, 153, 0.4);
+}
+
+.last-screening {
+  margin-top: 15px;
+  font-size: 13px;
+  opacity: 0.8;
+  text-align: center;
+}
+
+.postpartum-care {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 25px;
+}
+
+.postpartum-care h3 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.checklist-items {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.checklist-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.checklist-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.checklist-item.completed {
+  opacity: 0.7;
+}
+
+.checklist-item .checkbox {
+  font-size: 24px;
+  min-width: 30px;
+}
+
+/* 육아 관리 모드 */
+.childcare-mode {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.child-selector {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.child-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.child-card:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-3px);
+}
+
+.child-card.active {
+  border-color: #ec4899;
+  background: rgba(236, 72, 153, 0.2);
+}
+
+.child-icon {
+  font-size: 48px;
+}
+
+.child-info {
+  flex: 1;
+}
+
+.child-name {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.child-age {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.add-child-btn {
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px dashed rgba(255, 255, 255, 0.3);
+  border-radius: 15px;
+  color: white;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.add-child-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* 탭 */
+.tabs {
+  display: flex;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.tabs button {
+  flex: 1;
+  padding: 18px 20px;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-bottom: 3px solid transparent;
+}
+
+.tabs button:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.tabs button.active {
+  color: white;
+  background: rgba(236, 72, 153, 0.3);
+  border-bottom-color: #ec4899;
+}
+
+.tab-content {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 30px;
+}
+
+/* 개요 탭 */
+.overview-tab {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.child-details h3 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.detail-item .label {
+  font-size: 14px;
+  opacity: 0.7;
+  font-weight: 600;
+}
+
+.detail-item .value {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.quick-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.stat-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  padding: 25px;
+  text-align: center;
+}
+
+.stat-icon {
+  font-size: 48px;
+  margin-bottom: 15px;
+}
+
+.stat-label {
+  font-size: 14px;
+  opacity: 0.8;
+  margin-bottom: 10px;
+}
+
+.stat-value {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.stat-desc {
+  font-size: 13px;
+  opacity: 0.7;
+}
+
+/* 발달 단계 탭 */
+.development-tab h3 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.milestones-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.milestone-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border-left: 4px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.milestone-item.achieved {
+  border-left-color: #4ade80;
+  background: rgba(74, 222, 128, 0.1);
+}
+
+.milestone-item.pending {
+  border-left-color: #fbbf24;
+}
+
+.milestone-icon {
+  font-size: 28px;
+  min-width: 40px;
+  text-align: center;
+}
+
+.milestone-content {
+  flex: 1;
+}
+
+.milestone-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.milestone-info {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.milestone-info.expected {
+  color: #fbbf24;
+}
+
+.add-milestone-btn {
+  width: 100%;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px dashed rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.add-milestone-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* 성장 기록 탭 */
+.growth-tab h3 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.growth-chart {
+  margin-bottom: 40px;
+  padding: 25px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+}
+
+.growth-chart h4 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.chart-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  height: 200px;
+  gap: 10px;
+  padding: 20px 10px;
+}
+
+.chart-bar-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  justify-content: flex-end;
+}
+
+.chart-bar {
+  width: 100%;
+  border-radius: 8px 8px 0 0;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 8px;
+}
+
+.chart-bar.height {
+  background: linear-gradient(to top, #60a5fa, #3b82f6);
+}
+
+.chart-bar.weight {
+  background: linear-gradient(to top, #f87171, #ef4444);
+}
+
+.chart-bar:hover {
+  opacity: 0.8;
+  transform: scaleY(1.05);
+}
+
+.bar-value {
+  font-size: 11px;
+  font-weight: 700;
+  color: white;
+}
+
+.chart-label {
+  margin-top: 10px;
+  font-size: 12px;
+  opacity: 0.8;
+  text-align: center;
+}
+
+.add-record-btn {
+  width: 100%;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px dashed rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.add-record-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* 예방접종 탭 */
+.vaccination-tab h3 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.vaccination-progress {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  text-align: center;
+}
+
+.vaccination-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.vaccination-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 18px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border-left: 4px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.vaccination-item.completed {
+  border-left-color: #4ade80;
+  opacity: 0.7;
+}
+
+.vaccination-item.pending {
+  border-left-color: #fbbf24;
+}
+
+.vaccine-checkbox {
+  font-size: 24px;
+  min-width: 30px;
+  text-align: center;
+}
+
+.vaccine-content {
+  flex: 1;
+}
+
+.vaccine-name {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.vaccine-date {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.schedule-vaccine-btn {
+  padding: 8px 16px;
+  background: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.schedule-vaccine-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(139, 92, 246, 0.4);
+}
+
+/* 반응형 */
+@media (max-width: 1024px) {
+  .pregnancy-overview {
+    grid-template-columns: 1fr;
+  }
+
+  .postpartum-overview {
+    grid-template-columns: 1fr;
+  }
+
+  .quick-stats {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .pregnancy-childcare {
+    padding: 15px;
+  }
+
+  .pregnancy-childcare .header {
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-start;
+  }
+
+  .mode-selector {
+    width: 100%;
+  }
+
+  .mode-selector button {
+    flex: 1;
+    font-size: 13px;
+    padding: 8px 12px;
+  }
+
+  .pregnancy-card.main-info {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .care-item {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .details-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .child-selector {
+    grid-template-columns: 1fr;
+  }
+
+  .tabs {
+    overflow-x: auto;
+  }
+
+  .tabs button {
+    white-space: nowrap;
+    font-size: 14px;
+    padding: 15px 15px;
+  }
+
+  .chart-container {
+    height: 150px;
+  }
+}

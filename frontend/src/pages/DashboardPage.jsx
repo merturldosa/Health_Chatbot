@@ -1,383 +1,182 @@
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import FloatingHealthButton from '../components/FloatingHealthButton';
-import HealthOverviewWidget from '../components/HealthOverviewWidget';
-import VoiceCheckIn from '../components/VoiceCheckIn';
-import ContinuousVoiceMonitor from '../components/ContinuousVoiceMonitor';
-import MealCapture from '../components/MealCapture';
-import MoodChart from '../components/MoodChart';
-import NutritionChart from '../components/NutritionChart';
-import { mealsAPI, mentalHealthAPI } from '../services/api';
-import './DashboardPage.css';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import './DashboardPage.css'; // 기존 CSS 대신 Tailwind 사용하지만, 호환성을 위해 유지
 
 const DashboardPage = () => {
   const { user } = useAuth();
-  const [currentDate, setCurrentDate] = useState(new Date());
-  const [viewMode, setViewMode] = useState('day'); // day, week, month, year
-  const [touchStart, setTouchStart] = useState(null);
-  const [touchEnd, setTouchEnd] = useState(null);
-  const [showMealCapture, setShowMealCapture] = useState(false);
-  const [todayMeals, setTodayMeals] = useState([]);
-  const [moodRecords, setMoodRecords] = useState([]);
-  const [todayTasks, setTodayTasks] = useState([
-    { id: 1, type: 'meal', title: '아침 식사', completed: false, time: '08:00' },
-    { id: 2, type: 'medication', title: '혈압약 복용', completed: false, time: '09:00' },
-    { id: 3, type: 'meal', title: '점심 식사', completed: false, time: '12:00' },
-    { id: 4, type: 'exercise', title: '30분 걷기', completed: false, time: '14:00' },
-    { id: 5, type: 'meal', title: '저녁 식사', completed: false, time: '18:00' },
-    { id: 6, type: 'meditation', title: '명상 10분', completed: false, time: '20:00' },
-  ]);
+  const navigate = useNavigate();
+  const [healthScore, setHealthScore] = useState(78); // 예시 데이터
 
-  const minSwipeDistance = 50;
-  const containerRef = useRef(null);
-  const [scale, setScale] = useState(1);
-  const [initialDistance, setInitialDistance] = useState(null);
+  // 안전장치: 사용자 정보가 없으면 로딩 중 표시
+  if (!user) {
+    return <div className="p-10 text-center text-gray-500">사용자 정보를 불러오는 중입니다...</div>;
+  }
 
-      // 데이터 로딩
-    useEffect(() => {
-      const loadData = async () => {
-        try {
-          // 오늘 날짜 포맷 (YYYY-MM-DD)
-          const dateObj = new Date(currentDate);
-          dateObj.setHours(0, 0, 0, 0);
-          const startDateStr = dateObj.toISOString();
-          
-          const endDateObj = new Date(currentDate);
-          endDateObj.setHours(23, 59, 59, 999);
-          const endDateStr = endDateObj.toISOString();
-  
-          // 식단 데이터 로드 (현재 선택된 날짜 하루치)
-          const mealsRes = await mealsAPI.getAll({ 
-            start_date: startDateStr, 
-            end_date: endDateStr 
-          }); 
-          
-          if (mealsRes.data) {
-             setTodayMeals(Array.isArray(mealsRes.data) ? mealsRes.data : []);
-          }
-  
-          // 감정 기록 로드 (최근 30일)
-          const thirtyDaysAgo = new Date(currentDate);
-          thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-          const moodRes = await mentalHealthAPI.getAll({ 
-            start_date: thirtyDaysAgo.toISOString().split('T')[0],
-            end_date: endDateStr.split('T')[0] // YYYY-MM-DD 형식
-          });
-          if (moodRes.data) {
-            setMoodRecords(Array.isArray(moodRes.data) ? moodRes.data : []);
-          }
-  
-        } catch (error) {
-          console.error('데이터 로딩 실패:', error);
-        }
-      };
-  
-      loadData();
-    }, [currentDate]);
-  // 두 터치 포인트 간 거리 계산
-  const getDistance = (touch1, touch2) => {
-    const dx = touch1.clientX - touch2.clientX;
-    const dy = touch1.clientY - touch2.clientY;
-    return Math.sqrt(dx * dx + dy * dy);
-  };
+  // 차트 예시 데이터
+  const data = [
+    { name: '월', score: 65 },
+    { name: '화', score: 70 },
+    { name: '수', score: 68 },
+    { name: '목', score: 75 },
+    { name: '금', score: 82 },
+    { name: '토', score: 78 },
+    { name: '일', score: 85 },
+  ];
 
-  const onTouchStart = (e) => {
-    if (e.touches.length === 2) {
-      // 핀치 줌 시작
-      const distance = getDistance(e.touches[0], e.touches[1]);
-      setInitialDistance(distance);
-    } else if (e.touches.length === 1) {
-      // 스와이프 시작
-      setTouchEnd(null);
-      setTouchStart(e.targetTouches[0].clientX);
-    }
-  };
-
-  const onTouchMove = (e) => {
-    if (e.touches.length === 2 && initialDistance) {
-      // 핀치 줌
-      const currentDistance = getDistance(e.touches[0], e.touches[1]);
-      const scaleChange = currentDistance / initialDistance;
-
-      // 스케일 변화에 따라 viewMode 변경
-      if (scaleChange > 1.2) {
-        // 확대 (더 작은 단위로)
-        if (viewMode === 'year') setViewMode('month');
-        else if (viewMode === 'month') setViewMode('week');
-        else if (viewMode === 'week') setViewMode('day');
-        setInitialDistance(currentDistance);
-      } else if (scaleChange < 0.8) {
-        // 축소 (더 큰 단위로)
-        if (viewMode === 'day') setViewMode('week');
-        else if (viewMode === 'week') setViewMode('month');
-        else if (viewMode === 'month') setViewMode('year');
-        setInitialDistance(currentDistance);
-      }
-    } else if (e.touches.length === 1) {
-      setTouchEnd(e.targetTouches[0].clientX);
-    }
-  };
-
-  const onTouchEnd = () => {
-    setInitialDistance(null);
-
-    if (!touchStart || !touchEnd) return;
-
-    const distance = touchStart - touchEnd;
-    const isLeftSwipe = distance > minSwipeDistance;
-    const isRightSwipe = distance < -minSwipeDistance;
-
-    if (isLeftSwipe) {
-      // 미래로 이동
-      navigateDate(1);
-    }
-    if (isRightSwipe) {
-      // 과거로 이동
-      navigateDate(-1);
-    }
-  };
-
-  const navigateDate = (direction) => {
-    const newDate = new Date(currentDate);
-    if (viewMode === 'day') {
-      newDate.setDate(currentDate.getDate() + direction);
-    } else if (viewMode === 'week') {
-      newDate.setDate(currentDate.getDate() + direction * 7);
-    } else if (viewMode === 'month') {
-      newDate.setMonth(currentDate.getMonth() + direction);
-    } else if (viewMode === 'year') {
-      newDate.setFullYear(currentDate.getFullYear() + direction);
-    }
-    setCurrentDate(newDate);
-  };
-
-  const goToToday = () => {
-    setCurrentDate(new Date());
-    setViewMode('day');
-  };
-
-  const toggleTaskComplete = (taskId) => {
-    setTodayTasks(
-      todayTasks.map((task) =>
-        task.id === taskId ? { ...task, completed: !task.completed } : task
-      )
-    );
-  };
-
-  const handleMealSaved = (mealData) => {
-    // 식단 저장 후 오늘 식단 목록 새로고침
-    // setTodayMeals((prev) => [mealData, ...prev]); 
-    // 저장 후에는 전체 데이터를 다시 불러오는 것이 안전함 (영양 차트 업데이트 위해)
-    // 간단히 추가만 할 경우 차트 데이터 포맷과 맞지 않을 수 있음.
-    // 여기서는 일단 다시 로드하도록 트리거하거나, 형식을 맞춰서 추가.
-    // mealData 구조 확인 필요. 일단 로드 함수 재호출이 깔끔함.
-    // 하지만 currentDate 의존성 때문에 재호출하려면 별도 함수로 분리 필요.
-    // 여기서는 간단히 리로드 대신 새로고침 효과를 위해 상태 업데이트
-    
-    // mealData가 API 응답(단일 식단 객체)이라고 가정
-    if(mealData && mealData.meal) {
-        setTodayMeals((prev) => [...prev, mealData.meal]);
-    } else if (mealData) {
-        setTodayMeals((prev) => [...prev, mealData]);
-    }
-
-    // 해당 시간의 식사 체크리스트 완료 처리
-    const mealType = mealData?.meal_type || mealData?.meal?.meal_type;
-    const taskIndex = todayTasks.findIndex((task) => {
-      if (mealType === 'breakfast' && task.title.includes('아침')) return true;
-      if (mealType === 'lunch' && task.title.includes('점심')) return true;
-      if (mealType === 'dinner' && task.title.includes('저녁')) return true;
-      return false;
-    });
-    if (taskIndex >= 0) {
-      toggleTaskComplete(todayTasks[taskIndex].id);
-    }
-  };
-
-  const getTaskIcon = (type) => {
-    const icons = {
-      meal: '🍽️',
-      medication: '💊',
-      exercise: '🏃',
-      meditation: '🧘',
-      checkup: '🏥',
-    };
-    return icons[type] || '📌';
-  };
-
-  const formatDate = () => {
-    const isToday =
-      currentDate.toDateString() === new Date().toDateString();
-
-    if (viewMode === 'day') {
-      const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'short' };
-      return (
-        <div className="date-display">
-          <div className="date-main">{isToday ? '오늘' : currentDate.toLocaleDateString('ko-KR', options)}</div>
-          <div className="date-numeric">{currentDate.toLocaleDateString('ko-KR')}</div>
-        </div>
-      );
-    }
-    // 다른 뷰 모드 처리...
-    return currentDate.toLocaleDateString('ko-KR');
-  };
-
-  const completedCount = todayTasks.filter((t) => t.completed).length;
-  const progressPercentage = (completedCount / todayTasks.length) * 100;
+  const currentDate = new Date().toLocaleDateString('ko-KR', { 
+    month: 'long', 
+    day: 'numeric', 
+    weekday: 'long' 
+  });
 
   return (
-    <div
-      className="dashboard-page"
-      onTouchStart={onTouchStart}
-      onTouchMove={onTouchMove}
-      onTouchEnd={onTouchEnd}
-    >
-      <div className="dashboard-header" onClick={goToToday}>
-        <div className="app-title">애고 (ego)</div>
-        <div className="user-greeting">안녕하세요, {user?.full_name || '사용자'}님</div>
-      </div>
+    <div className="p-6 max-w-[1400px] mx-auto fade-in">
+      {/* 1. 상단 헤더 영역 */}
+      <header className="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <p className="text-gray-500 text-sm font-medium mb-1">{currentDate}</p>
+          <h1 className="text-3xl font-bold text-gray-900">
+            안녕하세요, <span className="text-primary">{user.username}</span>님 👋
+          </h1>
+          <p className="text-gray-600 mt-2">오늘도 활기찬 하루를 시작해보세요!</p>
+        </div>
+        <div className="flex gap-3">
+          <button 
+            onClick={() => navigate('/health-sync')}
+            className="px-4 py-2 bg-white border border-gray-200 rounded-xl text-sm font-medium hover:bg-gray-50 transition-colors shadow-sm flex items-center gap-2"
+          >
+            <span className="text-green-500">●</span> 기기 연동됨
+          </button>
+          <button 
+            onClick={() => navigate('/chat')}
+            className="px-6 py-2 bg-primary text-white rounded-xl font-bold shadow-lg shadow-teal-500/30 hover:bg-primary-dark transition-all transform hover:-translate-y-1"
+          >
+            AI 상담 시작하기
+          </button>
+        </div>
+      </header>
 
-      <div className="timeline-container">
-        <button className="nav-button prev" onClick={() => navigateDate(-1)}>
-          ←
-        </button>
-
-        <div className="date-section">
-          {formatDate()}
-          <div className="view-mode-selector">
-            <button
-              className={viewMode === 'day' ? 'active' : ''}
-              onClick={() => setViewMode('day')}
-            >
-              일
-            </button>
-            <button
-              className={viewMode === 'week' ? 'active' : ''}
-              onClick={() => setViewMode('week')}
-            >
-              주
-            </button>
-            <button
-              className={viewMode === 'month' ? 'active' : ''}
-              onClick={() => setViewMode('month')}
-            >
-              월
-            </button>
-            <button
-              className={viewMode === 'year' ? 'active' : ''}
-              onClick={() => setViewMode('year')}
-            >
-              년
-            </button>
+      {/* 2. Bento Grid 레이아웃 */}
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 auto-rows-[minmax(180px,auto)]">
+        
+        {/* Card 1: 종합 건강 점수 (Large) */}
+        <div className="col-span-1 md:col-span-2 lg:col-span-1 bg-white rounded-[24px] p-6 shadow-sm border border-slate-100 flex flex-col justify-between relative overflow-hidden group hover:border-primary transition-colors">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-teal-50 rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-110"></div>
+          <div>
+            <h3 className="text-gray-500 font-medium text-sm">오늘의 건강 점수</h3>
+            <div className="mt-4 flex items-end gap-2">
+              <span className="text-6xl font-black text-gray-900 tracking-tighter">{healthScore}</span>
+              <span className="text-xl text-gray-400 font-medium mb-2">/ 100</span>
+            </div>
+            <p className="text-sm text-green-600 font-medium mt-2 flex items-center gap-1">
+              <span>▲</span> 지난주보다 3점 상승
+            </p>
+          </div>
+          <div className="w-full bg-gray-100 h-2 rounded-full mt-4 overflow-hidden">
+            <div className="bg-primary h-full rounded-full" style={{ width: `${healthScore}%` }}></div>
           </div>
         </div>
 
-        <button className="nav-button next" onClick={() => navigateDate(1)}>
-          →
-        </button>
+        {/* Card 2: 주간 활동 차트 (Wide) */}
+        <div className="col-span-1 md:col-span-2 lg:col-span-2 bg-white rounded-[24px] p-6 shadow-sm border border-slate-100 hover:border-primary transition-colors">
+          <div className="flex justify-between items-center mb-4">
+            <h3 className="text-gray-900 font-bold text-lg">주간 컨디션 흐름</h3>
+            <select className="bg-gray-50 border-none text-sm text-gray-500 rounded-lg p-2 outline-none">
+              <option>이번 주</option>
+              <option>지난 주</option>
+            </select>
+          </div>
+          <div className="h-[140px] w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={data}>
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E2E8F0" />
+                <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#94A3B8', fontSize: 12}} />
+                <YAxis hide />
+                <Tooltip 
+                  contentStyle={{borderRadius: '12px', border: 'none', boxShadow: '0 4px 12px rgba(0,0,0,0.1)'}}
+                  cursor={{stroke: '#0D9488', strokeWidth: 1}}
+                />
+                <Line 
+                  type="monotone" 
+                  dataKey="score" 
+                  stroke="#0D9488" 
+                  strokeWidth={3} 
+                  dot={{r: 4, fill: '#0D9488', strokeWidth: 2, stroke: '#fff'}}
+                  activeDot={{r: 6}} 
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+
+        {/* Card 3: 바로가기 (Small) */}
+        <div className="col-span-1 bg-gradient-to-br from-gray-900 to-gray-800 rounded-[24px] p-6 text-white shadow-lg flex flex-col justify-between relative overflow-hidden cursor-pointer hover:shadow-xl transition-all"
+             onClick={() => navigate('/mood')}>
+          <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-bl-full -mr-4 -mt-4"></div>
+          <div className="text-3xl">🎭</div>
+          <div>
+            <h3 className="font-bold text-lg mb-1">감정 일기</h3>
+            <p className="text-gray-400 text-sm">오늘 기분은 어떠신가요?</p>
+          </div>
+        </div>
+
+        {/* Card 4: 오늘의 복약 (Medium) */}
+        <div className="col-span-1 md:col-span-2 lg:col-span-2 bg-teal-50 rounded-[24px] p-6 border border-teal-100 flex items-center justify-between">
+          <div className="flex gap-4 items-center">
+            <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-2xl shadow-sm">
+              💊
+            </div>
+            <div>
+              <h3 className="font-bold text-gray-900">저녁 약 복용 시간입니다</h3>
+              <p className="text-teal-700 text-sm mt-1">식후 30분 • 비타민 C 외 2개</p>
+            </div>
+          </div>
+          <button 
+            onClick={() => navigate('/medication')}
+            className="px-4 py-2 bg-white text-teal-700 font-bold rounded-lg text-sm hover:bg-teal-100 transition-colors"
+          >
+            복용 확인
+          </button>
+        </div>
+
+        {/* Card 5: AI 인사이트 (Small) */}
+        <div className="col-span-1 lg:col-span-2 bg-lime-50 rounded-[24px] p-6 border border-lime-100 flex gap-4">
+          <div className="text-3xl">💡</div>
+          <div>
+            <h3 className="font-bold text-gray-900 mb-1">AI 건강 팁</h3>
+            <p className="text-gray-700 text-sm leading-relaxed">
+              "어제보다 걸음 수가 부족해요. 저녁 식사 후 <strong>20분 가벼운 산책</strong>이 
+              혈당 조절과 숙면에 큰 도움이 됩니다. 함께 걸을까요?"
+            </p>
+          </div>
+        </div>
+
       </div>
 
-      <div className="progress-section">
-        <div className="progress-label">
-          오늘의 건강 관리 {completedCount}/{todayTasks.length}
-        </div>
-        <div className="progress-bar">
-          <div
-            className="progress-fill"
-            style={{ width: `${progressPercentage}%` }}
-          />
-        </div>
-      </div>
-
-      {/* 건강 종합 현황 위젯 */}
-      <HealthOverviewWidget />
-
-      {/* 영양 분석 차트 */}
-      <NutritionChart meals={todayMeals} />
-
-      {/* 감정 분석 차트 */}
-      <MoodChart records={moodRecords} />
-
-      {/* 상시 음성 모니터링 */}
-      <ContinuousVoiceMonitor />
-
-      {/* 음성 체크인 */}
-      <VoiceCheckIn />
-
-      <div className="tasks-section">
-        <h3 className="section-title">오늘의 체크리스트</h3>
-        <div className="tasks-list">
-          {todayTasks.map((task) => (
-            <div
-              key={task.id}
-              className={`task-card ${task.completed ? 'completed' : ''}`}
-              onClick={() => toggleTaskComplete(task.id)}
-            >
-              <div className="task-icon">{getTaskIcon(task.type)}</div>
-              <div className="task-content">
-                <div className="task-title">{task.title}</div>
-                <div className="task-time">{task.time}</div>
+      {/* 3. 최근 활동 목록 */}
+      <section className="mt-8">
+        <h2 className="text-xl font-bold text-gray-900 mb-4">최근 활동 내역</h2>
+        <div className="bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-sm">
+          {[
+            { icon: '🌙', title: '수면 기록', desc: '7시간 12분 수면 (좋음)', time: '오늘 오전 07:30' },
+            { icon: '💊', title: '점심 약 복용', desc: '혈압약 복용 완료', time: '오늘 오후 01:15' },
+            { icon: '💬', title: 'AI 상담', desc: '두통 증상 상담', time: '어제 오후 09:40' },
+          ].map((item, index) => (
+            <div key={index} className="flex items-center gap-4 p-4 border-b border-gray-50 last:border-none hover:bg-slate-50 transition-colors cursor-pointer">
+              <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-lg">
+                {item.icon}
               </div>
-              <div className="task-checkbox">
-                {task.completed ? '✓' : '○'}
+              <div className="flex-1">
+                <h4 className="font-bold text-gray-900 text-sm">{item.title}</h4>
+                <p className="text-gray-500 text-sm">{item.desc}</p>
               </div>
+              <span className="text-xs text-gray-400">{item.time}</span>
             </div>
           ))}
         </div>
-      </div>
-
-      <div className="quick-actions">
-        <button
-          className="action-btn primary"
-          onClick={() => setShowMealCapture(true)}
-        >
-          <span>📸</span>
-          <span>식단 기록</span>
-        </button>
-        <button className="action-btn">
-          <span>💊</span>
-          <span>복약</span>
-        </button>
-        <button className="action-btn">
-          <span>😊</span>
-          <span>기분</span>
-        </button>
-        <button className="action-btn">
-          <span>🏃</span>
-          <span>운동</span>
-        </button>
-      </div>
-
-      {/* 오늘의 식단 기록 표시 */}
-      {todayMeals.length > 0 && (
-        <div className="todays-meals">
-          <h3 className="section-title">오늘의 식단</h3>
-          <div className="meals-list">
-            {todayMeals.map((meal, index) => (
-              <div key={index} className="meal-card">
-                <img src={meal.image_url} alt="식단" />
-                <div className="meal-info">
-                  <div className="meal-match">
-                    일치도: {meal.match_percentage?.toFixed(0)}%
-                  </div>
-                  <div className="meal-calories">
-                    {meal.calories?.toFixed(0)} kcal
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {showMealCapture && (
-        <MealCapture
-          onClose={() => setShowMealCapture(false)}
-          onMealSaved={handleMealSaved}
-        />
-      )}
-
-      <FloatingHealthButton />
+      </section>
     </div>
   );
 };

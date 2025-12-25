@@ -710,3 +710,179 @@
     font-size: 12px;
   }
 }
+
+/* 감정 아이콘 표시 */
+.emotion-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  padding: 6px 12px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: var(--border-radius-sm);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.emotion-icon {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.emotion-label {
+  font-size: 13px;
+  opacity: 0.9;
+}
+
+.voice-tone-badge {
+  font-size: 12px;
+  padding: 2px 8px;
+  background: rgba(142, 126, 245, 0.3);
+  border-radius: 12px;
+  border: 1px solid rgba(142, 126, 245, 0.5);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* 음성 녹음 상태 표시 */
+.recording-indicator,
+.transcribing-indicator {
+  position: absolute;
+  top: -40px;
+  left: 20px;
+  padding: 8px 16px;
+  background: linear-gradient(135deg, #FF6B6B 0%, #FF5252 100%);
+  color: white;
+  border-radius: var(--border-radius-sm);
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: fadeIn 0.3s ease-out;
+  z-index: 10;
+}
+
+.transcribing-indicator {
+  background: linear-gradient(135deg, #8E7EF5 0%, #7B68EE 100%);
+}
+
+@media (max-width: 767px) {
+  .recording-indicator,
+  .transcribing-indicator {
+    left: 12px;
+    font-size: 13px;
+    padding: 6px 12px;
+  }
+}
+
+.recording-dot {
+  width: 10px;
+  height: 10px;
+  background: white;
+  border-radius: 50%;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.2);
+  }
+}
+
+/* 입력 컨테이너 레이아웃 업데이트 */
+.input-container {
+  position: relative;
+  padding: 20px;
+  background: var(--bg-secondary);
+  border-top: 2px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.input-container textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  font-family: inherit;
+  font-size: 15px;
+  resize: none;
+  color: var(--text-primary);
+  background: var(--bg-secondary);
+  transition: all 0.3s ease;
+  max-height: 120px;
+  min-height: 48px;
+}
+
+.input-buttons {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+/* 마이크 버튼 */
+.mic-btn {
+  padding: 14px 20px;
+  background: linear-gradient(135deg, #8E7EF5 0%, #7B68EE 100%);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 18px;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-sm);
+  min-width: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mic-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  background: linear-gradient(135deg, #9D8DF6 0%, #8A77EF 100%);
+}
+
+.mic-btn.recording {
+  background: linear-gradient(135deg, #FF6B6B 0%, #FF5252 100%);
+  animation: pulse-bg 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse-bg {
+  0%,
+  100% {
+    box-shadow: var(--shadow-sm);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(255, 107, 107, 0.6);
+  }
+}
+
+.mic-btn.recording:hover:not(:disabled) {
+  background: linear-gradient(135deg, #FF7A7A 0%, #FF6161 100%);
+}
+
+.mic-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: linear-gradient(135deg, #E0E0E0 0%, #BDBDBD 100%);
+}
+
+@media (max-width: 767px) {
+  .mic-btn {
+    padding: 12px 16px;
+    font-size: 16px;
+    min-width: 50px;
+  }
+}
